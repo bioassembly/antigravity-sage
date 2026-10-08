@@ -1,0 +1,45 @@
+{
+  "toolPermission": "always-proceed",
+  "artifactReviewPolicy": "agent-decides",
+  "allowNonWorkspaceAccess": true,
+  "notifications": true,
+  "trustedWorkspaces": [
+    "/home/shiddharta"
+  ],
+  "permissions": {
+    "deny": [
+      "command(rm -rf /)",
+      "command(regex:rm -rf (/[*]|~.*))",
+      "command(regex:sudo rm.*)",
+      "command(mkfs)",
+      "command(regex:dd if=.* of=/dev/.*)",
+      "command(chmod -R 777)",
+      "command(regex:curl .* \\| (bash|sh))",
+      "command(regex:wget .* \\| (bash|sh))",
+      "write_file(.git/)",
+      "write_file(/home/shiddharta/.ssh)"
+    ],
+    "allow": [
+      "command(git)",
+      "command(ls)",
+      "command(cat)",
+      "command(echo)",
+      "command(grep)",
+      "command(pwd)",
+      "command(which)",
+      "command(find)",
+      "command(wc)",
+      "command(stat)",
+      "command(mkdir)",
+      "command(touch)",
+      "command(python3)",
+      "command(pytest)",
+      "command(nextflow)",
+      "command(conda)",
+      "command(uv)",
+      "command(uvx)",
+      "command(gh)",
+      "command(jq)"
+    ]
+  }
+}
