@@ -11,7 +11,7 @@ Before starting any non-trivial task:
 
 1. **Vetting ladder**: Official docs (`docs.<tool>.io/llms.txt`) -> official repos -> curated collections (`obra/superpowers`, `K-Dense-AI/scientific-agent-skills`, `anthropics/skills`) -> web search.
 2. **Quality bar**: ≥1,000 stars (≥100 for niche bioinformatics); pushed within 12 months; zero malicious patterns; concise YAML frontmatter with actionable description.
-3. **Register**: Add the skill to `~/Antigravity-best-practices/REGISTRY.md` and link it to `~/.gemini/config/skills/`.
+3. **Register**: Add the skill to `~/antigravity-sage/REGISTRY.md` and link it to `~/.gemini/config/skills/`.
 
 ## Multi-Agent & Subagent Guidelines
 

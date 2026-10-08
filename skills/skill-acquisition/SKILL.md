@@ -35,7 +35,7 @@ curl -s https://api.github.com/repos/<org>/<repo> | jq '{stars:.stargazers_count
 Rewrite in your own words — never paste wholesale:
 
 ```
-~/Antigravity-best-practices/skills/<lowercase-hyphen-name>/SKILL.md
+~/antigravity-sage/skills/<lowercase-hyphen-name>/SKILL.md
 ---
 name: <matches dirname>
 description: trigger keywords + purpose, ≤120 chars
@@ -48,8 +48,8 @@ Dense and concrete beats long and vague; every line must change agent behavior.
 ## Step 5 — Install + register
 
 ```bash
-bash ~/Antigravity-best-practices/install.sh --only skills   # links into ~/.gemini/config/skills/
-echo "- $(date +%F) <name> <- <source repo>@<commit> (stars: N)" >> ~/Antigravity-best-practices/REGISTRY.md
+bash ~/antigravity-sage/install.sh --only skills   # links into ~/.gemini/config/skills/
+echo "- $(date +%F) <name> <- <source repo>@<commit> (stars: N)" >> ~/antigravity-sage/REGISTRY.md
 ```
 
 Print `[SKILL ADDED: <name>]`, apply it immediately to the current task.

@@ -1,6 +1,8 @@
-# Antigravity State-of-the-Art Harness Recipe
+# Antigravity SAGE
 
-A reproducible, high-performance configuration harness for **Google Antigravity CLI (`agy`)** and **Antigravity 2.0**, engineered to match and exceed the capabilities of modern agentic coding and bioinformatics harnesses.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+> **Antigravity SAGE (State-of-the-Art Agentic Genomics & Engineering Harness)**: A reproducible, high-performance configuration harness for **Google Antigravity CLI (`agy`)** and **Antigravity 2.0**, engineered to match and exceed the capabilities of modern agentic coding and bioinformatics harnesses.
 
 ---
 
@@ -46,9 +48,9 @@ Machine-wide agent protocol enforcing:
 To install or reproduce this harness on any machine or server:
 
 ```bash
-# 1. Clone or copy this repository
-git clone <repo-url> ~/Antigravity-best-practices
-cd ~/Antigravity-best-practices
+# 1. Clone this repository
+git clone https://github.com/bioassembly/antigravity-sage.git
+cd antigravity-sage
 
 # 2. Run the deployment script
 bash install.sh
@@ -69,7 +71,7 @@ bash install.sh
 To verify your setup at any time:
 
 ```bash
-bash ~/Antigravity-best-practices/scripts/doctor.sh
+bash scripts/doctor.sh
 ```
 Or directly inside the Antigravity TUI:
 ```
@@ -81,7 +83,9 @@ Or directly inside the Antigravity TUI:
 ## 📋 Directory Structure
 
 ```text
-Antigravity-best-practices/
+antigravity-sage/
+├── .gitignore                  # Git ignore rules for credentials, caches & runtime
+├── LICENSE                     # MIT License
 ├── install.sh                  # One-click deployment script
 ├── README.md                   # This documentation
 ├── REGISTRY.md                 # Detailed catalog of all skills, MCPs & agents
@@ -97,3 +101,10 @@ Antigravity-best-practices/
 └── scripts/
     └── doctor.sh               # Harness diagnostics suite
 ```
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
