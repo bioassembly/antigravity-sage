@@ -25,7 +25,7 @@
         "@modelcontextprotocol/server-memory@2026.7.4"
       ],
       "env": {
-        "MEMORY_FILE_PATH": "/home/shiddharta/.config/opencode/memory.json"
+        "MEMORY_FILE_PATH": "${HOME}/.config/opencode/memory.json"
       }
     }
   }
