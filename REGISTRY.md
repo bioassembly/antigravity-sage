@@ -39,6 +39,7 @@ A curated registry of state-of-the-art skills, custom subagents, and MCP servers
 - **`tool-installation`**: Clean conda/bioconda/conda-forge environment installs, avoiding pip breakage.
 
 ### Meta & Utility
+- **`first-principles-explainer`**: Break down complex bioinformatics, data pipelines, and algorithmic logic from first principles with grounded real-world examples.
 - **`skill-acquisition`**: Search trust ladder, vet (stars, recency, security scan), synthesize, and install new skills.
 - **`skill-evaluation`**: Benchmark skills and prompts with quantitative comparison.
 - **`skill-maker`**: Author and refine skills using Red-Green-Refactor methodology.
