@@ -39,7 +39,7 @@ Core principle: a skill is documentation that must survive contact with a pressu
 - Ship gate: ≥3 scenarios pass end-to-end on the actual target model — test on the weakest model you will actually run it with (e.g. a Flash tier).
 
 ### Install + provenance
-Write to `~/Antigravity-best-practices/skills/<lowercase-hyphen-name>/SKILL.md`, append `~/Antigravity-best-practices/REGISTRY.md` (source + stars), run `bash ~/Antigravity-best-practices/install.sh --only skills`, print `[SKILL ADDED: <name>]`.
+Write to `~/antigravity-sage/skills/<lowercase-hyphen-name>/SKILL.md`, append `~/antigravity-sage/REGISTRY.md` (source + stars), run `bash ~/antigravity-sage/install.sh --only skills`, print `[SKILL ADDED: <name>]`.
 
 ## When to use me
 "Make a skill" requests · skill improvement/review · skill-vs-best-practice comparison · adjudicating create-vs-configure decisions.

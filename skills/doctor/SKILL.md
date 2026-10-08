@@ -8,7 +8,7 @@ description: Run health diagnostics on the Antigravity harness (MCP endpoints, S
 Execute the health check suite to verify harness integrity:
 
 1. Run the diagnostic script:
-   `bash ~/Antigravity-best-practices/scripts/doctor.sh`
+   `bash ~/antigravity-sage/scripts/doctor.sh`
 2. Inspect the output table and report:
    - Any failing components with remediation suggestions.
    - Active MCP servers and responsiveness.
