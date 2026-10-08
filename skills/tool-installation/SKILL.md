@@ -8,24 +8,24 @@ description: Install bioinformatics tools via conda/bioconda/conda-forge, avoid 
 - Always check conda availability before falling back to pip
 - Avoid pip install for tools with C dependencies (biopython, eggNOG-mapper, etc.) on Python 3.14+
 - Verify installation after successful install
-- Use shiddharta environment by default unless specified otherwise
+- Use target/active conda environment by default
 
 ## Patterns
 ```bash
 # Always prefer conda over pip for bioinformatics tools
-conda run -n shiddharta conda install -c bioconda -c conda-forge <tool>
+conda install -c bioconda -c conda-forge <tool>
 
 # Verify installation
-conda run -n shiddharta which <binary> || conda run -n shiddharta python -c "import <module>; print('OK')"
+which <binary> || python -c "import <module>; print('OK')"
 
 # If conda fails, check available versions
 conda search <tool> -c bioconda -c conda-forge
 
 # For tools not in conda, try pip as last resort
-conda run -n shiddharta pip install <tool>
+pip install <tool>
 
 # Check Python version before installing Python-dependent tools
-conda run -n shiddharta python --version
+python --version
 ```
 
 ## When to use me

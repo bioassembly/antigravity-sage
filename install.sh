@@ -19,7 +19,7 @@ echo "[-] Installing curated MCP server configuration..."
 if [ -f "$GEMINI_CONFIG/mcp_config.json" ]; then
   cp "$GEMINI_CONFIG/mcp_config.json" "$GEMINI_CONFIG/mcp_config.json.bak.$(date +%s)"
 fi
-cp "$RECIPE_DIR/config/mcp_config.json" "$GEMINI_CONFIG/mcp_config.json"
+sed "s|\${HOME}|$HOME|g" "$RECIPE_DIR/config/mcp_config.json" > "$GEMINI_CONFIG/mcp_config.json"
 
 # 2. Install / Link Skills
 echo "[-] Linking vetted skills into $GEMINI_CONFIG/skills/..."
@@ -73,7 +73,7 @@ current["toolPermission"] = template["toolPermission"]
 current["artifactReviewPolicy"] = template["artifactReviewPolicy"]
 current["allowNonWorkspaceAccess"] = template["allowNonWorkspaceAccess"]
 current["notifications"] = template["notifications"]
-current["trustedWorkspaces"] = template.get("trustedWorkspaces", ["$HOME"])
+current["trustedWorkspaces"] = [os.path.expanduser(p) for p in template.get("trustedWorkspaces", ["~"])]
 
 with open(settings_path, "w") as f:
     json.dump(current, f, indent=2)

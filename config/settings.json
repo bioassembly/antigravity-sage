@@ -4,7 +4,7 @@
   "allowNonWorkspaceAccess": true,
   "notifications": true,
   "trustedWorkspaces": [
-    "/home/shiddharta"
+    "~"
   ],
   "permissions": {
     "deny": [
@@ -17,7 +17,7 @@
       "command(regex:curl .* \\| (bash|sh))",
       "command(regex:wget .* \\| (bash|sh))",
       "write_file(.git/)",
-      "write_file(/home/shiddharta/.ssh)"
+      "write_file(regex:.*[.]ssh($|/.*))"
     ],
     "allow": [
       "command(git)",
