@@ -38,6 +38,7 @@ A curated registry of state-of-the-art skills, custom subagents, and MCP servers
 - **`statistical-data-visualization`**: Statistical plot validation, bias detection, and interpretability for scientific reports.
 - **`tool-installation`**: Clean conda/bioconda/conda-forge environment installs, avoiding pip breakage.
 - **`fair-data-principles`**: Enforce and audit FAIR principles (Findable, Accessible, Interoperable, Reusable), Frictionless data schemas, and domain standards (MIMAG, MIxS) across scientific datasets and pipelines.
+- **`publish-results`**: Consolidate and organize pipeline execution outputs into a clean, numbered, user-facing `results/` directory while withholding proprietary code and internal environments.
 
 ### Meta & Utility
 - **`first-principles-explainer`**: Break down complex bioinformatics, data pipelines, and algorithmic logic from first principles with grounded real-world examples.
