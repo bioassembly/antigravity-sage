@@ -27,6 +27,17 @@
       "env": {
         "MEMORY_FILE_PATH": "${HOME}/.config/opencode/memory.json"
       }
+    },
+    "rea": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "rea-agents@6.4.0",
+        "mcp"
+      ],
+      "env": {
+        "REA_MCP_INPUT_SCHEMA_PROFILE": "compact"
+      }
     }
   }
 }

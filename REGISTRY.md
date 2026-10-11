@@ -47,6 +47,7 @@ A curated registry of state-of-the-art skills, custom subagents, and MCP servers
 - **`skill-maker`**: Author and refine skills using Red-Green-Refactor methodology.
 - **`web-scraping`**: Extract structured data from web pages, handling pagination and APIs.
 - **`pdf-inplace-editing`**: Zero-layout-drift PDF editing and redaction.
+- **`reverse-engineer-anything`**: Decompile/disassemble binaries, APKs, firmware, Electron apps, WASM/EVM via REA MCP (pinned `rea-agents@6.4.0`, compact schema). No-source targets only; native decompile needs Ghidra (not installed). (`morluto/rea`, 99.9k ⭐, MIT)
 
 ### Interactive Slash Commands (Implemented as Skills)
 - **`/review`**: Read-only code review of working git diff using the reviewer subagent.
