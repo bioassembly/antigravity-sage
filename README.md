@@ -22,10 +22,12 @@
 - **`context7`**: Streamable HTTP MCP for real-time framework & library API documentation (`https://mcp.context7.com/mcp`).
 - **`deepwiki`**: Streamable HTTP MCP for querying AI-indexed GitHub repository wikis and architectures without credentials (`https://mcp.deepwiki.com/mcp`).
 - **`memory`**: Local MCP memory graph for long-term project context (`~/.config/opencode/memory.json`).
+- **`rea`**: Reverse engineering of native binaries, APKs, firmware, Electron/JS apps, .NET, WASM/EVM via `morluto/rea` (99.9k ⭐, MIT) — stdio (`npx -y rea-agents@6.4.0 mcp`, compact input-schema profile). Static routes work with zero extra installs; native decompilation needs Ghidra (not bundled).
 
-### 2. Vetted Agent Skills (25 Total)
+### 2. Vetted Agent Skills (28 Total)
 - **Core Software Engineering**: `agentic-coding`, `test-driven-development` (obra/superpowers, 296k ⭐), `systematic-debugging`, `verification-before-completion`, `using-git-worktrees` (obra/superpowers), `github-repo-best-practices`, `security-audit`, `webapp-testing` (anthropics/skills, 180k ⭐), `mcp-builder`.
-- **Bioinformatics & Scientific Stack**: `nextflow` (K-Dense-AI, 47.9k ⭐), `pysam` (K-Dense-AI), `biopython` (K-Dense-AI), `statistical-data-visualization`, `tool-installation`.
+- **Bioinformatics & Scientific Stack**: `nextflow` (K-Dense-AI, 47.9k ⭐), `pysam` (K-Dense-AI), `biopython` (K-Dense-AI), `statistical-data-visualization`, `tool-installation`, `pipeline-sketch-results`, `fair-data-principles`, `first-principles-explainer`.
+- **Reverse Engineering**: `reverse-engineer-anything` (morluto/rea, 99.9k ⭐, MIT) — binaries, APKs, firmware, Electron apps, WASM/EVM with no source; auto-activates on no-source targets, stays out of source-level (Serena) work.
 - **Interactive Slash Commands**: `/review` (working diff reviewer), `/red-team` (adversarial skeptic), `/checkpoint` (task state save), `/gpu` (VRAM and inference status), `/doctor` (harness diagnostics).
 - **Skill Authoring & Meta**: `skill-acquisition`, `skill-evaluation`, `skill-maker`, `web-scraping`, `pdf-inplace-editing`.
 
@@ -91,13 +93,13 @@ antigravity-sage/
 ├── REGISTRY.md                 # Detailed catalog of all skills, MCPs & agents
 ├── config/
 │   ├── AGENTS.md               # Machine-wide global agent instructions
-│   ├── mcp_config.json         # Curated MCP configuration (Serena, Context7, DeepWiki, Memory)
+│   ├── mcp_config.json         # Curated MCP configuration (Serena, Context7, DeepWiki, Memory, REA)
 │   └── settings.json           # Settings template with autonomous permissions & deny rules
 ├── agents/                     # Custom subagents (reviewer, skeptic, bioinformatician)
 │   ├── bioinformatician/agent.md
 │   ├── reviewer/agent.md
 │   └── skeptic/agent.md
-├── skills/                     # 25 curated, vetted Agent Skills
+├── skills/                     # 28 curated, vetted Agent Skills
 └── scripts/
     └── doctor.sh               # Harness diagnostics suite
 ```
