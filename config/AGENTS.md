@@ -6,6 +6,7 @@ Before starting any non-trivial task:
 1. Check available skills (`/skills`); activate the skill matching the task and follow its runbook.
 2. For code navigation, symbol lookups, cross-file references, or refactorings in projects: use Serena MCP tools (`find_symbol`, `get_symbols_overview`, `find_referencing_symbols`) before reading raw files.
 3. No matching skill → note `[SKILL GAP: <topic>]`, and use the `skill-acquisition` skill to fetch, vet (stars, maintenance, security), and install the skill into `~/.gemini/config/skills/`.
+4. No source for the target (binary, APK, firmware, built app)? Use the `reverse-engineer-anything` skill (REA MCP); Serena stays for source-level work.
 
 ## Self-Improvement & Continuous Learning
 
