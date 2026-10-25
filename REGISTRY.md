@@ -21,6 +21,11 @@ A curated registry of state-of-the-art skills, custom subagents, and MCP servers
 ## 2. Agent Skills
 
 ### Engineering & Workflow
+- **`grill-me`**: Relentless design-tree interview loop in rounds with concrete defaults to stress-test plans before code is written. (`mattpocock/skills`, 302.6k ⭐, MIT)
+- **`domain-modeling`**: Active domain modeling discipline, inline `GLOSSARY.md` maintenance, and ADR authoring when trade-offs crystallize. (`mattpocock/skills`, 302.6k ⭐, MIT)
+- **`codebase-design`**: Deep modules vs shallow modules (Ousterhout), high leverage, locality, and seam discipline. (`mattpocock/skills`, 302.6k ⭐, MIT)
+- **`to-spec`**: Spec-driven synthesis: converts conversation and codebase context into verified technical specifications. (`mattpocock/skills`, 302.6k ⭐, MIT)
+- **`to-tickets`**: Vertical tracer-bullet slicing with blocking dependency chains and expand-contract refactors. (`mattpocock/skills`, 302.6k ⭐, MIT)
 - **`agentic-coding`**: Working agreements for coding loops: plan-then-edit, minimal diffs, verify each step.
 - **`test-driven-development`**: Red-Green-Refactor iron law: no production code without a failing test first. (`obra/superpowers`, 296k ⭐, MIT)
 - **`systematic-debugging`**: 4-phase root-cause debugging: reproduce, hypothesize, test minimally, fix root cause.
