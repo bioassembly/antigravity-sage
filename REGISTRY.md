@@ -62,8 +62,9 @@ A curated registry of state-of-the-art skills, custom subagents, and MCP servers
 
 ---
 
-## 3. Custom Subagents
+## 3. Custom Subagents & CLI Agents
 
+- **`read-only`**: Read-only codebase explorer, analyst, and advisor. Explores files, navigates symbols via Serena LSP, and explains architectures with strictly zero file edits or destructive commands (`mainAgent: true`, `subagent: true`).
 - **`reviewer`**: Read-only code reviewer evaluating diffs against correctness, security, and repo conventions.
 - **`skeptic`**: Adversarial senior engineer attacking plans before implementation (hidden assumptions, failure modes, simpler alternatives).
 - **`bioinformatician`**: Specialized persona for Nextflow DSL2, nf-core conventions, Quarto, conda, and ONT/PacBio sequencing workflows.

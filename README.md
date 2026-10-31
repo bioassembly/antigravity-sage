@@ -31,7 +31,8 @@
 - **Interactive Slash Commands**: `/review` (working diff reviewer), `/red-team` (adversarial skeptic), `/checkpoint` (task state save), `/gpu` (VRAM and inference status), `/doctor` (harness diagnostics).
 - **Skill Authoring & Meta**: `skill-acquisition`, `skill-evaluation`, `skill-maker`, `web-scraping`, `pdf-inplace-editing`.
 
-### 3. Custom Subagents (`~/.gemini/config/agents/`)
+### 3. Custom Subagents & CLI Agents (`~/.gemini/config/agents/`)
+- **`read-only`**: Read-only codebase explorer, analyst, and architecture advisor (strictly zero file edits or destructive commands).
 - **`reviewer`**: Read-only code reviewer evaluating diffs against correctness bugs, security issues, and repo conventions.
 - **`skeptic`**: Adversarial senior engineer attacking implementation plans before writing code (hidden assumptions, failure modes, simpler alternatives).
 - **`bioinformatician`**: Specialized persona for Nextflow DSL2, nf-core conventions, Quarto reporting, conda environments, and ONT/PacBio sequencing workflows.
@@ -95,8 +96,9 @@ antigravity-sage/
 │   ├── AGENTS.md               # Machine-wide global agent instructions
 │   ├── mcp_config.json         # Curated MCP configuration (Serena, Context7, DeepWiki, Memory, REA)
 │   └── settings.json           # Settings template with autonomous permissions & deny rules
-├── agents/                     # Custom subagents (reviewer, skeptic, bioinformatician)
+├── agents/                     # Custom subagents & CLI agents (read-only, reviewer, skeptic, bioinformatician)
 │   ├── bioinformatician/agent.md
+│   ├── read-only/agent.md
 │   ├── reviewer/agent.md
 │   └── skeptic/agent.md
 ├── skills/                     # 28 curated, vetted Agent Skills
