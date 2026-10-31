@@ -65,6 +65,7 @@ A curated registry of state-of-the-art skills, custom subagents, and MCP servers
 - **`/checkpoint`**: Dump current state to `NOTES.md` and push facts to the memory MCP.
 - **`/gpu`**: Inspect NVIDIA GPU utilization and running model processes (read-only).
 - **`/doctor`**: Harness diagnostics suite.
+- **`/hybrid`**: Toggle or inspect developmental hybrid cognitive routing (local AI worker offloading vs frontier reasoning).
 
 ---
 
