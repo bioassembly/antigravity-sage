@@ -13,6 +13,7 @@ echo "=========================================================="
 mkdir -p "$GEMINI_CONFIG/skills"
 mkdir -p "$GEMINI_CONFIG/agents"
 mkdir -p "$CLI_DIR"
+mkdir -p "$HOME/.config/opencode"
 
 # 1. Install / Update MCP Configuration
 echo "[-] Installing curated MCP server configuration..."
