@@ -10,6 +10,7 @@ A curated registry of state-of-the-art skills, custom subagents, and MCP servers
 | **`context7`** | Streamable HTTP (`https://mcp.context7.com/mcp`) | Up-to-date documentation and library API references | None | Context7 |
 | **`deepwiki`** | Streamable HTTP (`https://mcp.deepwiki.com/mcp`) | AI-indexed documentation, wikis, and architecture summaries for open-source GitHub repositories | None | DeepWiki (Streamable HTTP, free) |
 | **`memory`** | stdio (`npx -y @modelcontextprotocol/server-memory@2026.7.4`) | Persistent knowledge graph for project facts, design decisions, and architectural notes | `MEMORY_FILE_PATH` pointing to memory store | Official MCP SDK |
+| **`rea`** | stdio (`npx -y rea-agents@6.4.0 mcp`) | Reverse engineering of native binaries, APKs, firmware, Electron/JS apps, .NET, WASM/EVM | `REA_MCP_INPUT_SCHEMA_PROFILE=compact` | `morluto/rea` (99.9k ⭐, MIT) |
 
 > **Trimmed Servers:**
 > - `sequential-thinking`: Trimmed. Frontier models natively perform deep reasoning and chain-of-thought without requiring tool-call overhead.
