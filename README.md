@@ -24,14 +24,15 @@
 - **`memory`**: Local MCP memory graph for long-term project context (`~/.config/opencode/memory.json`).
 - **`rea`**: Reverse engineering of native binaries, APKs, firmware, Electron/JS apps, .NET, WASM/EVM via `morluto/rea` (99.9k ⭐, MIT) — stdio (`npx -y rea-agents@6.4.0 mcp`, compact input-schema profile). Static routes work with zero extra installs; native decompilation needs Ghidra (not bundled).
 
-### 2. Vetted Agent Skills (36 Total)
+### 2. Vetted Agent Skills (38 Total)
 - **Core Software Engineering**: `agentic-coding`, `grill-me`, `domain-modeling`, `codebase-design`, `to-spec`, `to-tickets` (`mattpocock/skills`, 302.6k ⭐), `git-commit-convention`, `test-driven-development` (`obra/superpowers`, 296k ⭐), `systematic-debugging`, `verification-before-completion`, `using-git-worktrees` (`obra/superpowers`), `github-repo-best-practices`, `security-audit`, `webapp-testing` (`anthropics/skills`, 180k ⭐), `mcp-builder`.
 - **Bioinformatics & Scientific Stack**: `nextflow` (K-Dense-AI, 47.9k ⭐), `pysam` (K-Dense-AI), `biopython` (K-Dense-AI), `statistical-data-visualization`, `tool-installation`, `pipeline-sketch-results`, `fair-data-principles`, `first-principles-explainer`.
 - **Reverse Engineering**: `reverse-engineer-anything` (morluto/rea, 99.9k ⭐, MIT) — binaries, APKs, firmware, Electron apps, WASM/EVM with no source; auto-activates on no-source targets, stays out of source-level (Serena) work.
-- **Interactive Slash Commands**: `/read-only` (safe inspection/exploration mode), `/review` (working diff reviewer), `/red-team` (adversarial skeptic), `/checkpoint` (task state save), `/gpu` (VRAM and inference status), `/doctor` (harness diagnostics).
-- **Skill Authoring & Meta**: `skill-acquisition`, `skill-evaluation`, `skill-maker`, `token-efficiency`, `web-scraping`, `pdf-inplace-editing`.
+- **Interactive Slash Commands**: `/read-only` (safe inspection/exploration mode), `/review` (working diff reviewer), `/red-team` (adversarial skeptic), `/checkpoint` (task state save), `/gpu` (VRAM and inference status), `/doctor` (harness diagnostics), `/hybrid` (3-tier cognitive routing).
+- **Skill Authoring & Meta**: `skill-acquisition`, `skill-evaluation`, `skill-maker`, `token-efficiency`, `hybrid-routing`, `web-scraping`, `pdf-inplace-editing`.
 
 ### 3. Custom Subagents & CLI Agents (`~/.gemini/config/agents/`)
+- **`orchestrator`**: Autonomous swarm meta-orchestrator. Deconstructs complex initiatives into decoupled workstreams, dynamically spawns and coordinates specialized parallel subagents, and synthesizes outputs.
 - **`read-only`**: Read-only codebase explorer, analyst, and architecture advisor (strictly zero file edits or destructive commands).
 - **`reviewer`**: Read-only code reviewer evaluating diffs against correctness bugs, security issues, and repo conventions.
 - **`skeptic`**: Adversarial senior engineer attacking implementation plans before writing code (hidden assumptions, failure modes, simpler alternatives).

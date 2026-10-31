@@ -55,7 +55,7 @@ A curated registry of state-of-the-art skills, custom subagents, and MCP servers
 - **`web-scraping`**: Extract structured data from web pages, handling pagination and APIs.
 - **`pdf-inplace-editing`**: Zero-layout-drift PDF editing and redaction.
 - **`token-efficiency`**: Context-window and token budget discipline: targeted grep/glob, slice reads, Serena LSP lookups, subagent isolation, and compaction hygiene.
-- **`hybrid-routing`**: Adaptive cognitive tier routing: dispatch abstract/conceptual reasoning to frontier models while offloading deterministic instruction tasks to local AI workers to preserve tokens. Features toggle on/off.
+- **`hybrid-routing`**: Adaptive 3-tier cognitive routing: dispatch abstract reasoning to Gemini 4 Argon, standard implementation and reviews to Gemini 3.8 Flash, and mechanical instruction tasks to local AI workers.
 - **`reverse-engineer-anything`**: Decompile/disassemble binaries, APKs, firmware, Electron apps, WASM/EVM via REA MCP (pinned `rea-agents@6.4.0`, compact schema). No-source targets only; native decompile needs Ghidra (not installed). (`morluto/rea`, 99.9k ⭐, MIT)
 
 ### Interactive Slash Commands (Implemented as Skills)
@@ -65,7 +65,7 @@ A curated registry of state-of-the-art skills, custom subagents, and MCP servers
 - **`/checkpoint`**: Dump current state to `NOTES.md` and push facts to the memory MCP.
 - **`/gpu`**: Inspect NVIDIA GPU utilization and running model processes (read-only).
 - **`/doctor`**: Harness diagnostics suite.
-- **`/hybrid`**: Toggle or inspect developmental hybrid cognitive routing (local AI worker offloading vs frontier reasoning).
+- **`/hybrid`**: Run 3-tier cognitive routing assessment and dispatch (Argon for concepts, 3.8 Flash for execution, local AI for mechanical tasks).
 
 ---
 
