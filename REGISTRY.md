@@ -55,7 +55,7 @@ A curated registry of state-of-the-art skills, custom subagents, and MCP servers
 - **`reverse-engineer-anything`**: Decompile/disassemble binaries, APKs, firmware, Electron apps, WASM/EVM via REA MCP (pinned `rea-agents@6.4.0`, compact schema). No-source targets only; native decompile needs Ghidra (not installed). (`morluto/rea`, 99.9k ⭐, MIT)
 
 ### Interactive Slash Commands (Implemented as Skills)
-- **`/read-only`** (or **`/readonly`**): Instruct the agent to explore, analyze, and inspect the codebase in strictly read-only mode (zero file modifications, zero destructive commands).
+- **`/read-only`**: Instruct the agent to explore, analyze, and inspect the codebase in strictly read-only mode (zero file modifications, zero destructive commands).
 - **`/review`**: Read-only code review of working git diff using the reviewer subagent.
 - **`/red-team`**: Pre-implementation attack on plans using the skeptic subagent.
 - **`/checkpoint`**: Dump current state to `NOTES.md` and push facts to the memory MCP.
