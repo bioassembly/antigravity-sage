@@ -59,6 +59,12 @@ Install the current stable Biopython release with an explicit version pin for re
 
 ```bash
 uv pip install "biopython==1.88"
+
+# Alternative outside conda (Python 3.12+ / 3.14 PEP 668):
+pip install --break-system-packages "biopython==1.88"
+
+# Preferred in conda environments:
+conda install -c conda-forge biopython=1.88
 ```
 
 For NCBI database access, always set your email address (required by NCBI). For reusable software, set a stable `Entrez.tool` value and register the tool/email with NCBI. For higher rate limits (10 req/s instead of 3 req/s), read only `NCBI_API_KEY` from the environment — do not hardcode keys or load unrelated environment variables:
@@ -102,6 +108,8 @@ for record in SeqIO.parse("sequences.fasta", "fasta"):
 # Convert GenBank to FASTA
 SeqIO.convert("input.gb", "genbank", "output.fasta", "fasta")
 ```
+
+> **High-Throughput / Long-Read Note**: For large ONT PromethION or PacBio Revio FASTQ datasets (millions of reads / gigabytes), `Bio.SeqIO.parse()` creates Python object overhead. Prefer `pysam.FastxFile` or `pyfastx` for streaming high-throughput sequencing data.
 
 ### 2. Alignment Analysis (Bio.Align & Bio.AlignIO)
 
@@ -188,11 +196,11 @@ Use for:
 
 **Quick example:**
 ```python
-from Bio.PDB import PDBParser
+from Bio.PDB import PDBParser, MMCIFParser
 
-# Parse structure
-parser = PDBParser(QUIET=True)
-structure = parser.get_structure("1crn", "1crn.pdb")
+# Parse legacy PDB or modern mmCIF (standard for Cryo-EM, AlphaFold, and structures >99k atoms)
+parser = MMCIFParser(QUIET=True)  # or PDBParser(QUIET=True) for .pdb
+structure = parser.get_structure("1crn", "1crn.cif")
 
 # Calculate distance between alpha carbons
 chain = structure[0]["A"]

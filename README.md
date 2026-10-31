@@ -24,12 +24,12 @@
 - **`memory`**: Local MCP memory graph for long-term project context (`~/.config/opencode/memory.json`).
 - **`rea`**: Reverse engineering of native binaries, APKs, firmware, Electron/JS apps, .NET, WASM/EVM via `morluto/rea` (99.9k ⭐, MIT) — stdio (`npx -y rea-agents@6.4.0 mcp`, compact input-schema profile). Static routes work with zero extra installs; native decompilation needs Ghidra (not bundled).
 
-### 2. Vetted Agent Skills (34 Total)
-- **Core Software Engineering**: `agentic-coding`, `grill-me`, `domain-modeling`, `codebase-design`, `to-spec`, `to-tickets` (`mattpocock/skills`, 302.6k ⭐), `test-driven-development` (`obra/superpowers`, 296k ⭐), `systematic-debugging`, `verification-before-completion`, `using-git-worktrees` (`obra/superpowers`), `github-repo-best-practices`, `security-audit`, `webapp-testing` (`anthropics/skills`, 180k ⭐), `mcp-builder`.
+### 2. Vetted Agent Skills (36 Total)
+- **Core Software Engineering**: `agentic-coding`, `grill-me`, `domain-modeling`, `codebase-design`, `to-spec`, `to-tickets` (`mattpocock/skills`, 302.6k ⭐), `git-commit-convention`, `test-driven-development` (`obra/superpowers`, 296k ⭐), `systematic-debugging`, `verification-before-completion`, `using-git-worktrees` (`obra/superpowers`), `github-repo-best-practices`, `security-audit`, `webapp-testing` (`anthropics/skills`, 180k ⭐), `mcp-builder`.
 - **Bioinformatics & Scientific Stack**: `nextflow` (K-Dense-AI, 47.9k ⭐), `pysam` (K-Dense-AI), `biopython` (K-Dense-AI), `statistical-data-visualization`, `tool-installation`, `pipeline-sketch-results`, `fair-data-principles`, `first-principles-explainer`.
 - **Reverse Engineering**: `reverse-engineer-anything` (morluto/rea, 99.9k ⭐, MIT) — binaries, APKs, firmware, Electron apps, WASM/EVM with no source; auto-activates on no-source targets, stays out of source-level (Serena) work.
 - **Interactive Slash Commands**: `/read-only` (safe inspection/exploration mode), `/review` (working diff reviewer), `/red-team` (adversarial skeptic), `/checkpoint` (task state save), `/gpu` (VRAM and inference status), `/doctor` (harness diagnostics).
-- **Skill Authoring & Meta**: `skill-acquisition`, `skill-evaluation`, `skill-maker`, `web-scraping`, `pdf-inplace-editing`.
+- **Skill Authoring & Meta**: `skill-acquisition`, `skill-evaluation`, `skill-maker`, `token-efficiency`, `web-scraping`, `pdf-inplace-editing`.
 
 ### 3. Custom Subagents & CLI Agents (`~/.gemini/config/agents/`)
 - **`read-only`**: Read-only codebase explorer, analyst, and architecture advisor (strictly zero file edits or destructive commands).
@@ -101,7 +101,7 @@ antigravity-sage/
 │   ├── read-only/agent.md
 │   ├── reviewer/agent.md
 │   └── skeptic/agent.md
-├── skills/                     # 34 curated, vetted Agent Skills
+├── skills/                     # 36 curated, vetted Agent Skills
 └── scripts/
     └── doctor.sh               # Harness diagnostics suite
 ```

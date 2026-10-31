@@ -106,6 +106,7 @@ This fixed-input example was executed with Nextflow 26.04.6, including `-resume`
 
 process SAYHELLO {
     tag "$greeting"
+    label 'process_single'
     publishDir "results", mode: 'copy'
 
     input:
@@ -118,6 +119,11 @@ process SAYHELLO {
     """
     echo '$greeting world' > ${greeting}.txt
     """
+
+    stub:
+    """
+    touch ${greeting}.txt
+    """
 }
 
 workflow {
@@ -126,6 +132,7 @@ workflow {
 ```
 
 ```bash
+nextflow run main.nf -stub-run  # Fast stub validation without real execution
 nextflow run main.nf            # add -resume on reruns
 ```
 
@@ -181,6 +188,9 @@ Config, executors, caching internals, and tracing details: `references/configura
 
 ## Best Practices (high-value habits)
 
+- **Trace channel flow end-to-end**: Before changing any process, trace upstream emissions and downstream inputs; state explicitly which downstream processes your change affects.
+- **Validate before real runs**: Run `-stub-run` or `-profile test` before processing real datasets to verify DAG topology, directives, and channel types.
+- **HPC / SLURM execution**: Long-running or GPU-heavy jobs are submitted to the cluster (`executor = 'slurm'`), never run inline on interactive or login nodes.
 - **Test the selected release first** with its small profile and resource limits. Check sample identity, counts, paired reads, reference assembly/annotation compatibility and expected outputs independently of exit status.
 - **Pin everything**: pipeline revision (`-r`), `NXF_VER`, and tool versions (containers). Don't run `latest` for science you'll publish.
 - **Use `-resume`** and understand caching: a task re-runs if its inputs, script, or container change. See cache-debugging in `references/configuration.md`.

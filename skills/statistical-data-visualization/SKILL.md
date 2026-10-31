@@ -52,6 +52,10 @@ description: Verify statistical data visualization correctness, bias detection, 
 - **Heatmap coverage**: sum of coverage per sample×taxon — not average (sum preserves total signal)
 - **MAG quality**: completeness ≥ 90% = HQ, ≥ 50% = MQ — verify thresholds match MIMAG standards
 - **GTDB taxonomy**: species = empty means genus-level only (ANI below species threshold)
+- **Long-read distributions (ONT/PacBio)**: read length histograms must use log10 scale or density curves with explicit N50 annotation; align Q-score thresholds with platform realities (ONT Q10–Q25 vs PacBio HiFi Q20–Q40+)
+- **Metagenomic composition**: relative abundance tables are compositional; use Centered Log-Ratio (CLR) or Aitchison distance for PCoA/PCA ordination instead of raw Euclidean distance on percentages
+- **Color accessibility**: use colorblind-safe palettes (Viridis, Cividis, Okabe-Ito); never use raw red-green scales without shape/text redundant encoding
+- **Quarto (`*.qmd`) reporting**: keep render outputs (`*.html`, `*_files/`, `*_cache/`) out of git; use `#| echo: false` in client deliverables
 
 ## When to use me
 - Before presenting any statistical chart in a report

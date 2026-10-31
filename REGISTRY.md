@@ -33,6 +33,7 @@ A curated registry of state-of-the-art skills, custom subagents, and MCP servers
 - **`verification-before-completion`**: Hard gate against premature "done" claims. Requires executed proof.
 - **`using-git-worktrees`**: Safe isolated branches and git worktrees before running invasive refactors. (`obra/superpowers`, 296k ⭐, MIT)
 - **`github-repo-best-practices`**: Top-1% standard for README, community health, CI/CD, and release layouts.
+- **`git-commit-convention`**: History-first house-style inference, Conventional Commits format, imperative summaries, closing keywords, and amend/force-with-lease safety. (Conventional Commits standard)
 - **`security-audit`**: OWASP Top-10 static audit for web applications and APIs.
 - **`webapp-testing`**: Playwright-based testing for local dynamic and static web applications. (`anthropics/skills`, 180k ⭐, Apache-2.0)
 - **`mcp-builder`**: Guide for designing, developing, and debugging MCP servers in Python and TypeScript. (`anthropics/skills`, 180k ⭐, Apache-2.0)
@@ -53,6 +54,8 @@ A curated registry of state-of-the-art skills, custom subagents, and MCP servers
 - **`skill-maker`**: Author and refine skills using Red-Green-Refactor methodology.
 - **`web-scraping`**: Extract structured data from web pages, handling pagination and APIs.
 - **`pdf-inplace-editing`**: Zero-layout-drift PDF editing and redaction.
+- **`token-efficiency`**: Context-window and token budget discipline: targeted grep/glob, slice reads, Serena LSP lookups, subagent isolation, and compaction hygiene.
+- **`hybrid-routing`**: Adaptive cognitive tier routing: dispatch abstract/conceptual reasoning to frontier models while offloading deterministic instruction tasks to local AI workers to preserve tokens. Features toggle on/off.
 - **`reverse-engineer-anything`**: Decompile/disassemble binaries, APKs, firmware, Electron apps, WASM/EVM via REA MCP (pinned `rea-agents@6.4.0`, compact schema). No-source targets only; native decompile needs Ghidra (not installed). (`morluto/rea`, 99.9k ⭐, MIT)
 
 ### Interactive Slash Commands (Implemented as Skills)
@@ -67,6 +70,7 @@ A curated registry of state-of-the-art skills, custom subagents, and MCP servers
 
 ## 3. Custom Subagents & CLI Agents
 
+- **`orchestrator`**: Swarm meta-orchestrator. Deconstructs complex initiatives into decoupled workstreams, dynamically spawns and coordinates specialized parallel subagents, and synthesizes outputs.
 - **`read-only`**: Read-only codebase explorer, analyst, and advisor. Explores files, navigates symbols via Serena LSP, and explains architectures with strictly zero file edits or destructive commands (`mainAgent: true`, `subagent: true`).
 - **`reviewer`**: Read-only code reviewer evaluating diffs against correctness, security, and repo conventions.
 - **`skeptic`**: Adversarial senior engineer attacking plans before implementation (hidden assumptions, failure modes, simpler alternatives).

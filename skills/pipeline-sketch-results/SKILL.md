@@ -7,8 +7,9 @@ description: Consolidate and organize outputs from custom, multi-step sketch/bas
 
 This skill standardizes the organization of outputs from custom, manually-crafted pipelines (bash scripts, python steps, sketch workflows without Nextflow) into a clean, professional, user-facing `results/` deliverable directory. It ensures that outputs are logically ordered, self-documenting, and free from internal execution clutter.
 
-> **CRITICAL POLICY (TRADE SECRETS & INTELLECTUAL PROPERTY)**:
-> Never copy internal execution scripts (`.py`, `.sh`, `command.sh`, `.nf`, Makefiles), environment definitions (`environment.yml`, `requirements.txt`), git tracking directories, or temporary scratch logs into the client-facing deliverable directory. Keep all code in their original step directories, and only copy data matrices, reports, cross-reference tables, and user documentation into `results/`.
+> **CRITICAL POLICY (TRADE SECRETS, CREDENTIALS & ISOLATION)**:
+> Never copy internal execution scripts (`.py`, `.sh`, `command.sh`, `.nf`, Makefiles), environment definitions (`environment.yml`, `requirements.txt`), credentials/secrets (`.env*`, `*token*`, `*.key`, `*.pem`), Nextflow runtime caches (`.nextflow*`, `work/`), git tracking directories, or temporary scratch logs into the client-facing deliverable directory.
+> All committed files, reports, and manifests MUST use relative paths — sanitize any machine-specific absolute paths (`/home/...`, `/scratch/...`). Keep all code in their original step directories, and only copy clean data matrices, reports, cross-reference tables, and user documentation into `results/`.
 
 ---
 
@@ -52,14 +53,21 @@ mkdir -p results/{0_curated_inputs,1_master_tables,2_broad_profiles,3_target_pro
    - Use clean, user-friendly column headers (avoid raw pipeline internal prefixes like `observed_`, `canonical_`, `tmp_`).
 3. **Physical Copies Only**: Use `cp -r` or direct file generation for deliverable files. Never create symlinks inside `results/` so the folder can be packaged, zipped, or rsynced across systems without broken references.
 
-### Step 4: Selective Ingestion & Isolation (No Code in Deliverables)
+### Step 4: Selective Ingestion & Isolation (Zero Code, Secrets, or Machine Paths)
 Ensure strict separation of concerns during copying:
 - **Do copy**: `.tsv`, `.csv`, `.parquet`, `.html`, `.pdf`, `.png`, `.svg`, `.md` report manifests.
-- **Do NOT copy**: Any executable scripts (`*.py`, `*.sh`, `*.nf`, `Makefile`, etc.) or environment manifests (`*.yml`, `requirements.txt`).
-- **Safety check**: If an accidental copy occurred, inspect `results/` to confirm no executable scripts are present inside the `results/` deliverable folder:
+- **Do NOT copy**: Any executable scripts (`*.py`, `*.sh`, `*.nf`, `Makefile`), environment manifests (`*.yml`, `requirements.txt`), secrets/credentials (`.env*`, `*.pem`, `*.key`), or cluster/Nextflow execution logs (`.nextflow*`, `work/`).
+- **Safety check**: Inspect `results/` to confirm no executable scripts, credentials, or caches leaked:
   ```bash
-  # Check for any accidental code files inside results/ only:
-  find results/ -type f \( -name "*.py" -o -name "*.sh" -o -name "*.nf" -o -name "*.yml" -o -name "requirements.txt" \)
+  # 1. Check for accidental code files, secrets, or environment manifests:
+  find results/ -type f \( \
+    -name "*.py" -o -name "*.sh" -o -name "*.nf" -o -name "*.yml" -o -name "*.yaml" -o \
+    -name "requirements.txt" -o -name ".env*" -o -name "*secret*" -o -name "*token*" -o \
+    -name "*.key" -o -name "*.pem" -o -name ".nextflow*" \
+  \)
+
+  # 2. Check for leaked internal absolute user paths:
+  grep -rn "$HOME" results/ || true
   ```
 
 ### Step 5: Portability & Integrity Verification

@@ -32,6 +32,12 @@ Use the pinned release for reproducible work:
 
 ```bash
 uv pip install "pysam==0.24.1"
+
+# Outside conda with pip (Python 3.12+ / 3.14 PEP 668):
+pip install --break-system-packages "pysam==0.24.1"
+
+# Preferred in conda / bioconda:
+conda install -c bioconda pysam
 ```
 
 Confirm the runtime:
@@ -119,6 +125,10 @@ Use context managers and explicit modes:
 import pysam
 
 with pysam.AlignmentFile("sample.bam", "rb", threads=4) as bam:
+    # Always verify index exists before region queries to avoid ValueError
+    if not bam.has_index():
+        raise RuntimeError("BAM is not indexed. Run pysam.index() or samtools index first.")
+
     for read in bam.fetch("chr1", 1_000, 2_000):
         if (
             not read.is_unmapped
@@ -127,6 +137,10 @@ with pysam.AlignmentFile("sample.bam", "rb", threads=4) as bam:
             and read.mapping_quality >= 30
         ):
             print(read.query_name, read.reference_start, read.cigarstring)
+            # Long-read (ONT/PacBio) methylation extraction:
+            if hasattr(read, "modified_bases") and read.modified_bases:
+                for (mod, canonical), sites in read.modified_bases.items():
+                    pass # (read_pos, score) tuples
 ```
 
 Use `fetch(until_eof=True)` to stream every record in file order, including

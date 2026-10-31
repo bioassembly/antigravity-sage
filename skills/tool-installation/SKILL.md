@@ -21,8 +21,11 @@ which <binary> || python -c "import <module>; print('OK')"
 # If conda fails, check available versions
 conda search <tool> -c bioconda -c conda-forge
 
-# For tools not in conda, try pip as last resort
-pip install <tool>
+# Prefer executing within specific conda environments without activating
+conda run -n <env> <command>  # e.g., conda run -n antismash antismash --version
+
+# For tools not in conda, use pip with --break-system-packages outside conda (Python 3.12+/3.14)
+pip install --break-system-packages <tool>
 
 # Check Python version before installing Python-dependent tools
 python --version
