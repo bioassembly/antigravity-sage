@@ -8,6 +8,12 @@ Before starting any non-trivial task:
 3. No matching skill → note `[SKILL GAP: <topic>]`, and use the `skill-acquisition` skill to fetch, vet (stars, maintenance, security), and install the skill into `~/.gemini/config/skills/`.
 4. No source for the target (binary, APK, firmware, built app)? Use the `reverse-engineer-anything` skill (REA MCP); Serena stays for source-level work.
 
+## Token Budget & Hybrid Offloading Rules
+
+- **Strict File Slicing**: On files >150 lines, always use `read_file` with `StartLine`/`EndLine` ranges (max 150 lines per slice) or targeted `grep`. Never dump entire files into context. Never re-read files already present in context.
+- **Direct-to-Disk Local Offloading**: For mechanical tasks (test scaffolding, mock data, boilerplate, schema translation, cross-family diff review), check `fleet_status`. If Strata slot 0 is idle (`is_processing: false`), use `delegate_local` via OpenCode to run locally with unlimited reasoning budget ($0 cloud tokens) without echoing code or chain-of-thought into context. Full outputs are saved to disk with clean summaries (≤3000 chars) returned to cloud.
+- **Airgap & Privacy Firewall**: Never send unfamiliar logs, configs, or clinical/genomic files to cloud models without running `airgap_scan`.
+
 ## Self-Improvement & Continuous Learning
 
 1. **Vetting ladder**: Official docs (`docs.<tool>.io/llms.txt`) -> official repos -> curated collections (`obra/superpowers`, `K-Dense-AI/scientific-agent-skills`, `anthropics/skills`) -> web search.

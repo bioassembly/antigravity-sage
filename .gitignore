@@ -3,6 +3,8 @@
 .env.*
 !.env.example
 *.env
+*.local.json
+configs/fleet.local.json
 *.pem
 *.key
 *.token

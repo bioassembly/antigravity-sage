@@ -5,6 +5,13 @@ RECIPE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 GEMINI_CONFIG="$HOME/.gemini/config"
 CLI_DIR="$HOME/.gemini/antigravity-cli"
 
+WITH_REA=false
+for arg in "$@"; do
+  case "$arg" in
+    --with-rea) WITH_REA=true ;;
+  esac
+done
+
 echo "=========================================================="
 echo "  Deploying Antigravity Best-Practices State-of-the-Art Harness"
 echo "=========================================================="
@@ -15,12 +22,62 @@ mkdir -p "$GEMINI_CONFIG/agents"
 mkdir -p "$CLI_DIR"
 mkdir -p "$HOME/.config/opencode"
 
-# 1. Install / Update MCP Configuration
-echo "[-] Installing curated MCP server configuration..."
+# 1. Install / Merge MCP Configuration (preserving existing & hybrid-sage)
+echo "[-] Merging curated MCP server configuration..."
 if [ -f "$GEMINI_CONFIG/mcp_config.json" ]; then
   cp "$GEMINI_CONFIG/mcp_config.json" "$GEMINI_CONFIG/mcp_config.json.bak.$(date +%s)"
 fi
-sed "s|\${HOME}|$HOME|g" "$RECIPE_DIR/config/mcp_config.json" > "$GEMINI_CONFIG/mcp_config.json"
+
+python3 - "$GEMINI_CONFIG/mcp_config.json" "$RECIPE_DIR/config/mcp_config.json" "$WITH_REA" "$HOME" <<'PY'
+import json, os, sys
+
+target_path, template_path, with_rea_str, home_dir = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
+with_rea = with_rea_str.lower() in ("true", "1", "yes")
+
+with open(template_path, "r", encoding="utf-8") as f:
+    template_raw = f.read().replace("${HOME}", home_dir)
+template = json.loads(template_raw)
+
+target = {"mcpServers": {}}
+if os.path.exists(target_path):
+    try:
+        with open(target_path, "r", encoding="utf-8") as f:
+            target = json.load(f)
+    except Exception:
+        target = {"mcpServers": {}}
+
+servers = target.setdefault("mcpServers", {})
+
+# Merge base template servers (preserving non-overlapping keys)
+for name, srv in template.get("mcpServers", {}).items():
+    servers[name] = srv
+
+# Handle REA (Reverse Engineer Anything) - 140 tools / ~1.1k tokens per turn prompt overhead
+if with_rea:
+    servers["rea"] = {
+        "command": "npx",
+        "args": ["-y", "rea-agents@6.4.0", "mcp"],
+        "env": {"REA_MCP_INPUT_SCHEMA_PROFILE": "compact"}
+    }
+    print("✔ REA MCP included (--with-rea active).")
+else:
+    if "rea" in servers:
+        del servers["rea"]
+        print("✔ REA MCP omitted (saved 140 tools / ~1,100 tokens per turn). Use --with-rea to enable.")
+
+with open(target_path, "w", encoding="utf-8") as f:
+    json.dump(target, f, indent=2)
+    f.write("\n")
+print(f"✔ Curated MCP configuration merged into {target_path}")
+PY
+
+# 1b. Check if hybrid-sage plugin installer exists and run it
+HYBRID_SAGE_DIR="${HYBRID_SAGE_DIR:-$(cd "$RECIPE_DIR/../hybrid-sage" 2>/dev/null && pwd || true)}"
+HYBRID_SAGE_INSTALLER="${HYBRID_SAGE_DIR:+$HYBRID_SAGE_DIR/install-plugin.sh}"
+if [ -n "$HYBRID_SAGE_INSTALLER" ] && [ -f "$HYBRID_SAGE_INSTALLER" ]; then
+  echo "[-] Synchronizing Hybrid SAGE Open-Core Plugin & MCP schemas..."
+  bash "$HYBRID_SAGE_INSTALLER"
+fi
 
 # 2. Install / Link Skills
 echo "[-] Linking vetted skills into $GEMINI_CONFIG/skills/..."
