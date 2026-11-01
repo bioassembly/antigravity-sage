@@ -71,6 +71,10 @@ work/
 *.bak.*
 *.tmp
 
+# Local-only machine skills & registries (never publish)
+skills.local/
+**/REGISTRY.local.md
+
 # Operating System & Editors
 .DS_Store
 Thumbs.db

@@ -6,19 +6,19 @@ Before starting any non-trivial task:
 1. Check available skills (`/skills`); activate the skill matching the task and follow its runbook.
 2. For code navigation, symbol lookups, cross-file references, or refactorings in projects: use Serena MCP tools (`find_symbol`, `get_symbols_overview`, `find_referencing_symbols`) before reading raw files.
 3. No matching skill → note `[SKILL GAP: <topic>]`, and use the `skill-acquisition` skill to fetch, vet (stars, maintenance, security), and install the skill into `~/.gemini/config/skills/`.
-4. No source for the target (binary, APK, firmware, built app)? Use the `reverse-engineer-anything` skill (REA MCP); Serena stays for source-level work.
+4. **Autonomous Binary & Opaque Artifact Exploration**: While exploring a codebase or directory, keep Serena LSP for readable source files, and **automatically** activate `reverse-engineer-anything` (`rea` CLI: `rea inspect-artifact`, `rea analyze-javascript-application`, `rea inspect-binary-layout`, etc.) whenever you encounter compiled binaries, `.so`/`.dll`/`.dylib` libraries, `.apk`/`.asar` packages, `.wasm`/`.pyc`/`.jar` bytecode, firmware, or minified JS bundles without source — never wait for the user to ask for `rea`.
 
-## Token Budget & Hybrid Offloading Rules
+## Token Budget & Optional Local Offloading Rules
 
 - **Strict File Slicing**: On files >150 lines, always use `read_file` with `StartLine`/`EndLine` ranges (max 150 lines per slice) or targeted `grep`. Never dump entire files into context. Never re-read files already present in context.
-- **Direct-to-Disk Local Offloading**: For mechanical tasks (test scaffolding, mock data, boilerplate, schema translation, cross-family diff review), check `fleet_status`. If Strata slot 0 is idle (`is_processing: false`), use `delegate_local` via OpenCode to run locally with unlimited reasoning budget ($0 cloud tokens) without echoing code or chain-of-thought into context. Full outputs are saved to disk with clean summaries (≤3000 chars) returned to cloud.
-- **Airgap & Privacy Firewall**: Never send unfamiliar logs, configs, or clinical/genomic files to cloud models without running `airgap_scan`.
+- **Optional Local Offloading (`hybrid-sage`)**: When the `hybrid-sage` MCP server is connected, call `fleet_status` before mechanical tasks (test scaffolding, mock data, boilerplate, schema translation, cross-family diff review). If an OpenCode worker is online and idle (`slot_0_busy: false`), use `delegate_local` (`skip_if_busy: true`) so full outputs write directly to disk and only clean summaries (`<=3000` chars) return to cloud. If offline or cloud-only, execute directly without blocking.
+- **Airgap & Privacy Firewall**: When `hybrid-sage` is connected, run `airgap_scan` before sending unfamiliar logs, configs, or clinical/genomic files to cloud models.
 
 ## Self-Improvement & Continuous Learning
 
 1. **Vetting ladder**: Official docs (`docs.<tool>.io/llms.txt`) -> official repos -> curated collections (`obra/superpowers`, `K-Dense-AI/scientific-agent-skills`, `anthropics/skills`) -> web search.
 2. **Quality bar**: ≥1,000 stars (≥100 for niche bioinformatics); pushed within 12 months; zero malicious patterns; concise YAML frontmatter with actionable description.
-3. **Register**: Add the skill to `~/antigravity-sage/REGISTRY.md` and link it to `~/.gemini/config/skills/`.
+3. **Register**: Record provenance in `REGISTRY.md` and link the skill into `~/.gemini/config/skills/`.
 
 ## Multi-Agent & Subagent Guidelines
 
@@ -32,5 +32,5 @@ Before starting any non-trivial task:
 - **Tight responses**: Direct, concise, technical. No fluff, no unsolicited preamble or postamble.
 - **Minimal diffs**: No drive-by reformatting, no unsolicited renames. Suggest cosmetic cleanups separately.
 - **Verify before claiming done**: Run the narrowest test or command that can fail and cite executed evidence. No evidence, no "done".
-- **Genomics & Python stack**: Python packages outside conda use `--break-system-packages`. Nextflow pipelines follow nf-core conventions with stub tests (`-stub-run`) before real data.
+- **Genomics & Python stack**: Prioritize `conda install -c bioconda -c conda-forge` for compiled bioinformatics tools; Python packages outside conda use `--break-system-packages`. Nextflow pipelines follow nf-core conventions with stub tests (`-stub-run`) before real data.
 - **Durable memory**: Persist important architectural decisions, conventions, and user preferences to the `memory` MCP server. Never store credentials or API keys.

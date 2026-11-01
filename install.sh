@@ -52,7 +52,7 @@ servers = target.setdefault("mcpServers", {})
 for name, srv in template.get("mcpServers", {}).items():
     servers[name] = srv
 
-# Handle REA (Reverse Engineer Anything) - 140 tools / ~1.1k tokens per turn prompt overhead
+# Handle REA (Reverse Engineer Anything) - 170 tools (~876 lazy name tokens/turn in Antigravity, ~67.6k schema tokens/turn if eager)
 if with_rea:
     servers["rea"] = {
         "command": "npx",
@@ -63,7 +63,7 @@ if with_rea:
 else:
     if "rea" in servers:
         del servers["rea"]
-        print("✔ REA MCP omitted (saved 140 tools / ~1,100 tokens per turn). Use --with-rea to enable.")
+        print("✔ REA MCP omitted (170 tools; zero-overhead `rea` CLI active instead). Use --with-rea to enable MCP.")
 
 with open(target_path, "w", encoding="utf-8") as f:
     json.dump(target, f, indent=2)
@@ -79,12 +79,29 @@ if [ -n "$HYBRID_SAGE_INSTALLER" ] && [ -f "$HYBRID_SAGE_INSTALLER" ]; then
   bash "$HYBRID_SAGE_INSTALLER"
 fi
 
-# 2. Install / Link Skills
+# 2. Install / Link Skills (public + optional gitignored skills.local/, pruning dead links)
 echo "[-] Linking vetted skills into $GEMINI_CONFIG/skills/..."
+for existing in "$GEMINI_CONFIG/skills"/*; do
+  [ -L "$existing" ] && [ ! -e "$existing" ] && rm -f "$existing"
+done
 for skill_dir in "$RECIPE_DIR"/skills/*/; do
+  [ -d "$skill_dir" ] || continue
   skill_name=$(basename "$skill_dir")
   ln -sfn "$skill_dir" "$GEMINI_CONFIG/skills/$skill_name"
 done
+if [ -d "$RECIPE_DIR/skills.local" ]; then
+  for local_skill in "$RECIPE_DIR"/skills.local/*; do
+    [ -e "$local_skill" ] || continue
+    skill_name=$(basename "$local_skill")
+    ln -sfn "$(readlink -f "$local_skill")" "$GEMINI_CONFIG/skills/$skill_name"
+  done
+fi
+
+# 2b. Ensure zero-overhead `rea` CLI binary is available when npm is present
+if ! command -v rea &>/dev/null && ! [ -x "$HOME/.local/bin/rea" ] && command -v npm &>/dev/null; then
+  echo "[-] Installing rea-agents@6.4.0 CLI for autonomous binary inspection..."
+  npm install -g --silent rea-agents@6.4.0 || true
+fi
 
 # 3. Install / Link Custom Subagents
 echo "[-] Linking custom subagents into $GEMINI_CONFIG/agents/..."

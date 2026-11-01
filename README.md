@@ -24,12 +24,12 @@
 - **`memory`**: Local MCP memory graph for long-term project context (`~/.config/opencode/memory.json`).
 - **`rea`**: Reverse engineering of native binaries, APKs, firmware, Electron/JS apps, .NET, WASM/EVM via `morluto/rea` (99.9k ⭐, MIT) — stdio (`npx -y rea-agents@6.4.0 mcp`, compact input-schema profile). Static routes work with zero extra installs; native decompilation needs Ghidra (not bundled).
 
-### 2. Vetted Agent Skills (38 Total)
+### 2. Vetted Agent Skills (35 Bundled + Gitignored `skills.local/` Support)
 - **Core Software Engineering**: `agentic-coding`, `grill-me`, `domain-modeling`, `codebase-design`, `to-spec`, `to-tickets` (`mattpocock/skills`, 302.6k ⭐), `git-commit-convention`, `test-driven-development` (`obra/superpowers`, 296k ⭐), `systematic-debugging`, `verification-before-completion`, `using-git-worktrees` (`obra/superpowers`), `github-repo-best-practices`, `security-audit`, `webapp-testing` (`anthropics/skills`, 180k ⭐), `mcp-builder`.
-- **Bioinformatics & Scientific Stack**: `nextflow` (K-Dense-AI, 47.9k ⭐), `pysam` (K-Dense-AI), `biopython` (K-Dense-AI), `statistical-data-visualization`, `tool-installation`, `pipeline-sketch-results`, `fair-data-principles`, `first-principles-explainer`.
-- **Reverse Engineering**: `reverse-engineer-anything` (morluto/rea, 99.9k ⭐, MIT) — binaries, APKs, firmware, Electron apps, WASM/EVM with no source; auto-activates on no-source targets, stays out of source-level (Serena) work.
-- **Interactive Slash Commands**: `/read-only` (safe inspection/exploration mode), `/review` (working diff reviewer), `/red-team` (adversarial skeptic), `/checkpoint` (task state save), `/gpu` (VRAM and inference status), `/doctor` (harness diagnostics), `/hybrid` (3-tier cognitive routing).
-- **Skill Authoring & Meta**: `skill-acquisition`, `skill-evaluation`, `skill-maker`, `token-efficiency`, `hybrid-routing`, `web-scraping`, `pdf-inplace-editing`.
+- **Bioinformatics & Scientific Stack**: `nextflow` (K-Dense-AI, 47.9k ⭐), `pysam` (K-Dense-AI), `biopython` (K-Dense-AI), `statistical-data-visualization`, `pipeline-sketch-results`, `fair-data-principles`, `first-principles-explainer`.
+- **Autonomous Reverse Engineering**: `reverse-engineer-anything` (morluto/rea, 99.9k ⭐, MIT) — automatically detects opaque binaries, `.so`/`.dll` libraries, APKs, Electron/ASAR bundles, firmware, and minified JS during codebase exploration and runs the zero-context-overhead `rea` CLI on demand without manual invocation.
+- **Interactive Slash Commands**: `/read-only` (safe inspection/exploration mode), `/review` (working diff reviewer), `/red-team` (adversarial skeptic), `/checkpoint` (task state save), `/doctor` (harness diagnostics).
+- **Autonomous Exploration & Meta**: `overnight-explorer` (unattended multi-branch research/code/data discovery while away), `skill-acquisition`, `skill-evaluation`, `skill-maker`, `token-efficiency`, `web-scraping`, `pdf-inplace-editing` *(plus `model-router` when optional sibling `hybrid-sage` is present, and private machine-only skills placed in gitignored `skills.local/`)*.
 
 ### 3. Custom Subagents & CLI Agents (`~/.gemini/config/agents/`)
 - **`orchestrator`**: Autonomous swarm meta-orchestrator. Deconstructs complex initiatives into decoupled workstreams, dynamically spawns and coordinates specialized parallel subagents, and synthesizes outputs.
@@ -97,12 +97,14 @@ antigravity-sage/
 │   ├── AGENTS.md               # Machine-wide global agent instructions
 │   ├── mcp_config.json         # Curated MCP configuration (Serena, Context7, DeepWiki, Memory, REA)
 │   └── settings.json           # Settings template with autonomous permissions & deny rules
-├── agents/                     # Custom subagents & CLI agents (read-only, reviewer, skeptic, bioinformatician)
+├── agents/                     # Custom subagents & CLI agents (orchestrator, read-only, reviewer, skeptic, bioinformatician)
 │   ├── bioinformatician/agent.md
+│   ├── orchestrator/agent.md
 │   ├── read-only/agent.md
 │   ├── reviewer/agent.md
 │   └── skeptic/agent.md
-├── skills/                     # 36 curated, vetted Agent Skills
+├── skills/                     # 35 curated, hardware-portable Agent Skills
+├── skills.local/               # (Optional, gitignored) Private machine-only skills
 └── scripts/
     └── doctor.sh               # Harness diagnostics suite
 ```

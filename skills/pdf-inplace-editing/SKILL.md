@@ -27,9 +27,9 @@ python3 $S scan ORIG.pdf                          # text spans: page, bbox, size
 python3 $S scan ORIG.pdf --images                 # raster images: bbox + pixel size + xref
 # write pairs file: old<TAB>new per line (# comments ok)
 python3 $S swap ORIG.pdf OUT.pdf --pairs edits.tsv [--meta-date 2026-08-22T01:18:47Z]
-python3 $S reletter OUT.pdf OUT2.pdf --old m84182_... --new demo_run2   # tesseract auto-locates ID
+python3 $S reletter OUT.pdf OUT2.pdf --old RUN_ID_OLD --new demo_run2   # tesseract auto-locates ID
 # if OCR misses a page that really has the ID: --left "6:734" (page:left_px)
-python3 $S verify ORIG.pdf OUT2.pdf --scan m84182,RSCM,bc2159           # pixel diff + residual scan
+python3 $S verify ORIG.pdf OUT2.pdf --scan RUN_ID_OLD,ACME_LAB,BC01     # pixel diff + residual scan
 ```
 
 ## Pitfalls (learned the hard way)
