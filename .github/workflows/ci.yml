@@ -1,0 +1,19 @@
+name: Validate harness
+on: [push, pull_request]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Config JSON parses
+        run: |
+          python3 -m json.tool config/mcp_config.json > /dev/null
+          python3 -m json.tool config/settings.json > /dev/null
+      - name: Scripts parse
+        run: |
+          bash -n install.sh
+          for script in scripts/*.sh; do bash -n "$script"; done
+      - name: Bundled skill integrity
+        run: python3 scripts/validate-skills.py
+      - name: Validator tests
+        run: python3 -m unittest discover -s tests -v

@@ -73,3 +73,5 @@ A curated, hardware-portable registry of state-of-the-art skills, custom subagen
 - **`reviewer`**: Read-only code reviewer evaluating diffs against correctness, security, and repo conventions.
 - **`skeptic`**: Adversarial senior engineer attacking plans before implementation (hidden assumptions, failure modes, simpler alternatives).
 - **`bioinformatician`**: Specialized persona for Nextflow DSL2, nf-core conventions, Quarto, conda, and ONT/PacBio sequencing workflows.
+
+- 2026-11-08 harness-integrity pass <- local audit + official MCP SDK, Nextflow/Seqera, pysam, and Biopython documentation — repaired unavailable scientific/MCP guide links, added local MCP evaluation and test-design guides, aligned acquisition with authorized maintenance, and preferred isolated Python environments. New support text is locally authored; existing upstream attribution remains.

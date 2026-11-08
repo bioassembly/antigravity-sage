@@ -22,7 +22,7 @@ metadata:
 
 ## Overview
 
-Biopython is a comprehensive set of freely available Python tools for biological computation. It provides functionality for sequence manipulation, file I/O, database access, structural bioinformatics, phylogenetics, and many other bioinformatics tasks. These examples target **Biopython 1.88** (released 6 August 2026), tested here on Python 3.13. It requires Python 3.10+ and NumPy; Python 3.10 support is deprecated. Upgrade to 1.88 for its `Bio.Nexus` parser security fix, in addition to the Entrez XML fix in 1.87. See the [release notes](https://github.com/biopython/biopython/blob/biopython-188/NEWS.rst). Local example checks and external-service limits are recorded in `references/review.md`; examples requiring user files or external programs are illustrative unless listed there as exercised.
+Biopython is a comprehensive set of freely available Python tools for biological computation. It provides functionality for sequence manipulation, file I/O, database access, structural bioinformatics, phylogenetics, and many other bioinformatics tasks. These examples target **Biopython 1.88** (released 6 August 2026); inspect the installed Python and Biopython versions before using them. It requires Python 3.10+ and NumPy; Python 3.10 support is deprecated. Upgrade to 1.88 for its `Bio.Nexus` parser security fix, in addition to the Entrez XML fix in 1.87. See the [release notes](https://github.com/biopython/biopython/blob/biopython-188/NEWS.rst). Examples requiring user files, external services, or external programs are illustrative. Validate the selected APIs against the installed version and run a small local fixture before claiming success.
 
 ## When to Use This Skill
 
@@ -55,13 +55,16 @@ Biopython is organized into modular sub-packages, each addressing specific bioin
 
 ## Installation and Setup
 
+Use the project environment or create an isolated venv first. Direct these
+commands at that environment; preserve system package protections.
+
 Install the current stable Biopython release with an explicit version pin for reproducibility:
 
 ```bash
 uv pip install "biopython==1.88"
 
-# Alternative outside conda (Python 3.12+ / 3.14 PEP 668):
-pip install --break-system-packages "biopython==1.88"
+# Alternative in an existing project virtual environment:
+python -m pip install "biopython==1.88"
 
 # Preferred in conda environments:
 conda install -c conda-forge biopython=1.88
@@ -87,7 +90,7 @@ This skill provides comprehensive documentation organized by functionality area.
 
 ### 1. Sequence Handling (Bio.Seq & Bio.SeqIO)
 
-**Reference:** `references/sequence_io.md`
+**Reference:** [sequence io guide](https://biopython.org/docs/latest/Tutorial/chapter_seqio.html)
 
 Use for:
 - Creating and manipulating biological sequences
@@ -113,7 +116,7 @@ SeqIO.convert("input.gb", "genbank", "output.fasta", "fasta")
 
 ### 2. Alignment Analysis (Bio.Align & Bio.AlignIO)
 
-**Reference:** `references/alignment.md`
+**Reference:** [alignment guide](https://biopython.org/docs/latest/Tutorial/chapter_pairwise.html)
 
 Use for:
 - Pairwise sequence alignment (global and local)
@@ -135,7 +138,7 @@ print(alignments[0])
 
 ### 3. Database Access (Bio.Entrez)
 
-**Reference:** `references/databases.md`
+**Reference:** [databases guide](https://biopython.org/docs/latest/Tutorial/chapter_entrez.html)
 
 Use for:
 - Searching NCBI databases (PubMed, GenBank, Protein, Gene, etc.)
@@ -158,7 +161,7 @@ print(f"Found {results['Count']} results")
 
 ### 4. BLAST Operations (Bio.Blast)
 
-**Reference:** `references/blast.md`
+**Reference:** [blast guide](https://biopython.org/docs/latest/Tutorial/chapter_blast.html)
 
 Use for:
 - Running BLAST searches via NCBI web services
@@ -184,7 +187,7 @@ for alignment in blast_record.alignments[:5]:
 
 ### 5. Structural Bioinformatics (Bio.PDB)
 
-**Reference:** `references/structure.md`
+**Reference:** [structure guide](https://biopython.org/docs/latest/Tutorial/chapter_pdb.html)
 
 Use for:
 - Parsing PDB and mmCIF structure files
@@ -210,7 +213,7 @@ print(f"Distance: {distance:.2f} Å")
 
 ### 6. Phylogenetics (Bio.Phylo)
 
-**Reference:** `references/phylogenetics.md`
+**Reference:** [phylogenetics guide](https://biopython.org/docs/latest/Tutorial/chapter_phylo.html)
 
 Use for:
 - Reading and writing phylogenetic trees (Newick, NEXUS, phyloXML)
@@ -235,7 +238,7 @@ print(f"Distance: {distance:.3f}")
 
 ### 7. Advanced Features
 
-**Reference:** `references/advanced.md`
+**Reference:** [advanced guide](https://biopython.org/docs/latest/Tutorial/chapter_cookbook.html)
 
 Use for:
 - **Sequence motifs** (Bio.motifs) - Finding and analyzing motif patterns
@@ -262,21 +265,12 @@ print(f"Molecular weight: {molecular_weight(seq, seq_type='DNA'):.2f} g/mol")
 When a user asks about a specific Biopython task:
 
 1. **Identify the relevant module** based on the task description
-2. **Read the appropriate reference file** using the Read tool
+2. **Read the relevant official documentation** using an available documentation or web tool
 3. **Extract relevant code patterns** and adapt them to the user's specific needs
 4. **Combine multiple modules** when the task requires it
 
-Example search patterns for reference files:
-```bash
-# Find information about specific functions
-rg -n "SeqIO.parse" references/sequence_io.md
-
-# Find examples of specific tasks
-rg -n "BLAST" references/blast.md
-
-# Find information about specific concepts
-rg -n "alignment" references/alignment.md
-```
+Use the linked official tutorial chapter or search the installed module with
+`help()`/`inspect.signature()` when a version-specific detail matters.
 
 ### Writing Biopython Code
 
@@ -443,7 +437,7 @@ Phylo.draw_ascii(tree)
 **Solution:** These modules were removed in Biopython 1.86. Use [hmmlearn](https://pypi.org/project/hmmlearn/) for HMMs and the standard library `subprocess` module instead of `Bio.Application` CLI wrappers.
 
 ### Issue: PairwiseAligner returns fewer alignments after upgrading to 1.86+
-**Solution:** The default gap score changed from 0 to -1 in 1.86, eliminating trivial tie alignments. Set `aligner.gap_score = 0` to restore the old behavior if needed (see `references/alignment.md`).
+**Solution:** The default gap score changed from 0 to -1 in 1.86, eliminating trivial tie alignments. Set `aligner.gap_score = 0` to restore the old behavior if needed (see [alignment guide](https://biopython.org/docs/latest/Tutorial/chapter_pairwise.html)).
 
 ## Additional Resources
 
@@ -457,18 +451,9 @@ Phylo.draw_ascii(tree)
 
 ## Quick Reference
 
-To locate information in reference files, use these search patterns:
-
-```bash
-# Search for specific functions
-rg -n "function_name" references/*.md
-
-# Find examples of specific tasks
-rg -n "example" references/sequence_io.md
-
-# Find all occurrences of a module
-rg -n "Bio.Seq" references/*.md
-```
+Use the [official tutorial](https://biopython.org/docs/latest/Tutorial/) and
+[API documentation](https://biopython.org/docs/latest/api/) for the selected
+module; verify behavior with a small local fixture.
 
 ## Citing Scientific Agent Skills
 

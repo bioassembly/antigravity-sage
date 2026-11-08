@@ -16,6 +16,9 @@ echo "=========================================================="
 echo "  Deploying Antigravity Best-Practices State-of-the-Art Harness"
 echo "=========================================================="
 
+# Validate staged skills before changing the installed harness.
+python3 "$RECIPE_DIR/scripts/validate-skills.py"
+
 # Ensure base directories exist
 mkdir -p "$GEMINI_CONFIG/skills"
 mkdir -p "$GEMINI_CONFIG/agents"
