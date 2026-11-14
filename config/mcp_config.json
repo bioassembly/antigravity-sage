@@ -9,12 +9,17 @@
     "serena": {
       "command": "uvx",
       "args": [
-        "serena-agent",
+        "--from",
+        "serena-agent==2.1.0",
+        "serena",
         "start-mcp-server",
         "--context",
         "antigravity",
-        "--project-from-cwd",
+        "--agent-interface",
+        "tools",
         "--open-web-dashboard",
+        "false",
+        "--enable-gui-log-window",
         "false"
       ]
     },
@@ -22,11 +27,15 @@
       "command": "npx",
       "args": [
         "-y",
-        "@modelcontextprotocol/server-memory@2026.7.4"
+        "@modelcontextprotocol/server-memory@2.1.1"
       ],
       "env": {
-        "MEMORY_FILE_PATH": "${HOME}/.config/opencode/memory.json"
-      }
+        "MEMORY_FILE_PATH": "${HOME}/.gemini/config/memory.json"
+      },
+      "disabled": true
+    },
+    "openaiDeveloperDocs": {
+      "url": "https://developers.openai.com/mcp"
     }
   }
 }

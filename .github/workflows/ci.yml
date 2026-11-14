@@ -5,6 +5,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - name: Config JSON parses
         run: |
           python3 -m json.tool config/mcp_config.json > /dev/null
@@ -17,3 +23,5 @@ jobs:
         run: python3 scripts/validate-skills.py
       - name: Validator tests
         run: python3 -m unittest discover -s tests -v
+      - name: Native RTK plugin tests
+        run: node --test runtime/rtk/opencode/rtk.test.mjs

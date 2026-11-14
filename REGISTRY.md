@@ -75,3 +75,5 @@ A curated, hardware-portable registry of state-of-the-art skills, custom subagen
 - **`bioinformatician`**: Specialized persona for Nextflow DSL2, nf-core conventions, Quarto, conda, and ONT/PacBio sequencing workflows.
 
 - 2026-11-08 harness-integrity pass <- local audit + official MCP SDK, Nextflow/Seqera, pysam, and Biopython documentation — repaired unavailable scientific/MCP guide links, added local MCP evaluation and test-design guides, aligned acquisition with authorized maintenance, and preferred isolated Python environments. New support text is locally authored; existing upstream attribution remains.
+
+- 2026-11-15 finalized shared refresh: original upstream packages, full grilling/setup dependencies, native RTK integration, checksum manifests and licenses; current client catalog and compatibility details are in docs/shared-sync.md. Upstream MCP evaluation parallel-result fix is explicit in patches/mcp-evaluation-parallel.patch.

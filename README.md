@@ -11,20 +11,21 @@
 1. **Native Strengths First**: Antigravity already provides native web search, URL reading, an interactive browser subagent (`/browser`), asynchronous subagents (`/agents`), and deep multi-agent reasoning loops (`/boost`). Redundant MCP servers (e.g. `fetch`, `sequential-thinking`, generic `playwright`) have been pruned to prevent context bloat and latency.
 2. **Language Server Protocol (LSP) Intelligence via Serena**: Since Antigravity does not feature a bare `"lsp": true` toggle, LSP capabilities are provided through **Serena MCP** (`oraios/serena`). Serena runs Language Servers across 40+ programming languages (Python, Nextflow, PHP, TypeScript, Bash, R, etc.), exposing IDE-level symbol search, workspace definitions, cross-file reference lookups, and semantic refactoring directly to the agent.
 3. **Persistent Project Memory**: Official `@modelcontextprotocol/server-memory` retains durable project architecture choices, user preferences, and conventions across compaction cycles and new sessions.
-4. **Autonomous Execution with Strict Safeguards**: Configured with `toolPermission: always-proceed` alongside an anchored Deny list (`rm -rf /`, `mkfs`, raw device writes, unvetted pipe-to-shell scripts, `.git/` protection).
+4. **Existing Permission Choices**: Installation preserves the user's configured autonomy and permission settings. The settings template adds no permission defaults.
 
 ---
 
 ## 📦 What is Included
 
 ### 1. Model Context Protocol (MCP) Servers
-- **`serena`**: Stdio MCP providing full LSP semantic intelligence, symbol jump, and refactoring (`uvx serena-agent start-mcp-server --context antigravity --project-from-cwd --open-web-dashboard false`).
+- **`serena`**: Stdio MCP for symbol search and refactoring, pinned to `serena-agent==2.1.0` with the native Antigravity tool interface. Project selection occurs when needed.
 - **`context7`**: Streamable HTTP MCP for real-time framework & library API documentation (`https://mcp.context7.com/mcp`).
 - **`deepwiki`**: Streamable HTTP MCP for querying AI-indexed GitHub repository wikis and architectures without credentials (`https://mcp.deepwiki.com/mcp`).
-- **`memory`**: Local MCP memory graph for long-term project context (`~/.config/opencode/memory.json`).
-- **`rea`**: Reverse engineering of native binaries, APKs, firmware, Electron/JS apps, .NET, WASM/EVM via `morluto/rea` (99.9k ⭐, MIT) — stdio (`npx -y rea-agents@6.4.0 mcp`, compact input-schema profile). Static routes work with zero extra installs; native decompilation needs Ghidra (not bundled).
+- **`memory`**: Optional local MCP memory graph, disabled on fresh installation, with a separate `~/.gemini/config/memory.json` store.
+- **`openaiDeveloperDocs`**: Official OpenAI documentation MCP.
+- **`rea`**: Optional reverse-engineering MCP (`--with-rea`, pinned `rea-agents@6.4.0`). Native decompilation needs Ghidra, which is not bundled.
 
-### 2. Vetted Agent Skills (35 Bundled + Gitignored `skills.local/` Support)
+### 2. Vetted Agent Skills (41 Bundled + Gitignored `skills.local/` Support)
 - **Core Software Engineering**: `agentic-coding`, `grill-me`, `domain-modeling`, `codebase-design`, `to-spec`, `to-tickets` (`mattpocock/skills`, 302.6k ⭐), `git-commit-convention`, `test-driven-development` (`obra/superpowers`, 296k ⭐), `systematic-debugging`, `verification-before-completion`, `using-git-worktrees` (`obra/superpowers`), `github-repo-best-practices`, `security-audit`, `webapp-testing` (`anthropics/skills`, 180k ⭐), `mcp-builder`.
 - **Bioinformatics & Scientific Stack**: `nextflow` (K-Dense-AI, 47.9k ⭐), `pysam` (K-Dense-AI), `biopython` (K-Dense-AI), `statistical-data-visualization`, `pipeline-sketch-results`, `fair-data-principles`, `first-principles-explainer`.
 - **Autonomous Reverse Engineering**: `reverse-engineer-anything` (morluto/rea, 99.9k ⭐, MIT) — automatically detects opaque binaries, `.so`/`.dll` libraries, APKs, Electron/ASAR bundles, firmware, and minified JS during codebase exploration and runs the zero-context-overhead `rea` CLI on demand without manual invocation.
@@ -61,12 +62,12 @@ bash install.sh
 ```
 
 ### What `install.sh` Does:
-1. Deploys `config/mcp_config.json` to `~/.gemini/config/mcp_config.json`.
+1. Merges `config/mcp_config.json` into the live config, preserving custom registrations and existing on/off choices.
 2. Links all vetted skills into `~/.gemini/config/skills/`.
 3. Links custom subagents into `~/.gemini/config/agents/`.
-4. Deploys global rules to `~/.gemini/config/AGENTS.md`.
-5. Merges autonomous permission settings and security Deny barriers into `~/.gemini/antigravity-cli/settings.json`.
-6. Executes `scripts/doctor.sh` to verify every component.
+4. Merges shared rules into `~/.gemini/config/AGENTS.md`, preserving personal notes.
+5. Preserves `~/.gemini/antigravity-cli/settings.json` permission choices.
+6. Journals managed files and prints a restore command. Run diagnostics separately; installation starts no model or Hybrid jobs.
 
 ---
 
@@ -96,14 +97,14 @@ antigravity-sage/
 ├── config/
 │   ├── AGENTS.md               # Machine-wide global agent instructions
 │   ├── mcp_config.json         # Curated MCP configuration (Serena, Context7, DeepWiki, Memory, REA)
-│   └── settings.json           # Settings template with autonomous permissions & deny rules
+│   └── settings.json           # Empty defaults; existing permission choices survive
 ├── agents/                     # Custom subagents & CLI agents (orchestrator, read-only, reviewer, skeptic, bioinformatician)
 │   ├── bioinformatician/agent.md
 │   ├── orchestrator/agent.md
 │   ├── read-only/agent.md
 │   ├── reviewer/agent.md
 │   └── skeptic/agent.md
-├── skills/                     # 35 curated, hardware-portable Agent Skills
+├── skills/                     # 41 curated, hardware-portable Agent Skills
 ├── skills.local/               # (Optional, gitignored) Private machine-only skills
 └── scripts/
     └── doctor.sh               # Harness diagnostics suite
@@ -114,6 +115,7 @@ antigravity-sage/
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Bundled upstream skills retain their own terms; see [third-party notices](THIRD_PARTY_NOTICES.md).
 
 
 ## Maintaining skill quality
@@ -130,3 +132,7 @@ project environments, `uv`/venv, or named conda environments are preferred for P
 Optional Hybrid SAGE routing can connect Antigravity, OpenCode, and Codex when the
 corresponding workers are configured; provider privacy and cost are checked rather
 than inferred from the harness name.
+
+## 2026-11-15 shared upstream refresh
+
+Original Ponytail and grill-me/grilling, refreshed pinned upstream packages, native RTK integration, reversible activation, and disabled-Hybrid handling are documented in [docs/shared-sync.md](docs/shared-sync.md). Use the new installer with `--disable-hybrid` to honor an off choice across MCP and auto-discovered plugin entrypoints. No worker or unrelated package installer runs automatically. Existing provider/model/permission settings and personal skills are preserved.

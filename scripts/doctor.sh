@@ -41,7 +41,7 @@ HS_SCRIPT=""
 if [ -f "$MCP_CONF" ]; then
   if python3 -m json.tool "$MCP_CONF" &>/dev/null; then
     check_pass "mcp_config.json is valid JSON ($(jq -r '.mcpServers | keys | join(", ")' "$MCP_CONF" 2>/dev/null))"
-    if jq -e '.mcpServers["hybrid-sage"]' "$MCP_CONF" &>/dev/null; then
+    if jq -e '.mcpServers["hybrid-sage"] | select(.disabled != true)' "$MCP_CONF" &>/dev/null; then
       HS_SCRIPT=$(jq -r '.mcpServers["hybrid-sage"].args[0] // empty' "$MCP_CONF" 2>/dev/null || true)
       if [ -f "$HS_SCRIPT" ]; then
         check_pass "hybrid-sage MCP registered ($HS_SCRIPT)"
@@ -108,7 +108,7 @@ if [ -d "$SKILLS_DIR" ]; then
   BROKEN=$(find "$SKILLS_DIR" -mindepth 1 -maxdepth 1 -xtype l | wc -l)
   COUNT=$(find -L "$SKILLS_DIR" -mindepth 1 -maxdepth 1 -type d | wc -l)
   if [ "$BROKEN" -gt 0 ]; then
-    check_warn "Skills directory has $BROKEN broken symlink(s) — re-run ./install.sh to prune"
+    check_warn "Skills directory has $BROKEN broken symlink(s). Review their targets and re-run ./install.sh."
   else
     check_pass "Active skills installed: $COUNT skills available (0 broken links)"
   fi
@@ -135,10 +135,10 @@ fi
 
 # 11. Token Overhead & Prompt Health Check
 if [ -f "$MCP_CONF" ]; then
-  if jq -e '.mcpServers["rea"]' "$MCP_CONF" &>/dev/null; then
-    check_warn "REA MCP active (170 tools; run ./install.sh without --with-rea to use zero-overhead rea CLI instead)"
+  if jq -e '.mcpServers["rea"] | select(.disabled != true)' "$MCP_CONF" &>/dev/null; then
+    check_info "REA MCP enabled. Disable its native MCP entry when the installed CLI provides the required capability."
   else
-    check_pass "Lean MCP footprint active (REA 170-tool MCP omitted; zero-overhead rea CLI ready)"
+    check_pass "REA MCP absent or disabled; this registration adds no active REA tool schemas."
   fi
 fi
 

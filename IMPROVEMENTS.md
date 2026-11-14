@@ -34,3 +34,7 @@
   `consult_codex`) and the user's request for a Codex/Antigravity/OpenCode fleet.
 - Free-model allowlists describe operator policy, not unlimited quota or local data
   residency. Unavailable workers fall back to direct work without paid rerouting.
+
+## 2026-11-15 — Original upstream packages and reversible shared integration
+
+Complete source packages/resources are pinned in third_party/lock.json. Original Ponytail and grilling text is unchanged. Native skill routing, compiled-guide compatibility aliases, and the independently tested MCP parallel-result correction are recorded outside or alongside the relevant upstream files. Shared installers preserve preferences, local skill overrides, personal plugin files and user notes, and journal explicit Hybrid deactivation including auto-discovered plugins. No model job or provider change is required to update the harness. See docs/shared-sync.md.
