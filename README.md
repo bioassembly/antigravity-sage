@@ -8,9 +8,9 @@
 
 ## 🌟 Architecture & Design Philosophy
 
-1. **Native Strengths First**: Antigravity already provides native web search, URL reading, an interactive browser subagent (`/browser`), asynchronous subagents (`/agents`), and deep multi-agent reasoning loops (`/boost`). Redundant MCP servers (e.g. `fetch`, `sequential-thinking`, generic `playwright`) have been pruned to prevent context bloat and latency.
+1. **Native Strengths First**: Antigravity already provides native web search, URL reading, checkpoints/NOTES.md, an interactive browser subagent (`/browser`), asynchronous subagents (`/agents`), and deep multi-agent reasoning loops (`/boost`). Redundant MCP servers (`fetch`, `sequential-thinking`, `playwright`, `memory`, `openaiDeveloperDocs`) have been pruned to prevent tool-schema bloat.
 2. **Language Server Protocol (LSP) Intelligence via Serena**: Since Antigravity does not feature a bare `"lsp": true` toggle, LSP capabilities are provided through **Serena MCP** (`oraios/serena`). Serena runs Language Servers across 40+ programming languages (Python, Nextflow, PHP, TypeScript, Bash, R, etc.), exposing IDE-level symbol search, workspace definitions, cross-file reference lookups, and semantic refactoring directly to the agent.
-3. **Persistent Project Memory**: Official `@modelcontextprotocol/server-memory` retains durable project architecture choices, user preferences, and conventions across compaction cycles and new sessions.
+3. **Automatic Tiered Skill Loading (`sage-skill-router`)**: Keeps 9 universal core skills (+ `skills.local/` overrides) active at startup and routes the remaining 32 domain skills from `~/.gemini/config/skills-catalog/` automatically via `SessionStart` + `PreInvocation` workspace/prompt signals (`--all-skills` activates all 41 directly). Missing reusable workflows are automatically vetted and installed into `skills.local/` via `skill-acquisition`.
 4. **Existing Permission Choices**: Installation preserves the user's configured autonomy and permission settings. The settings template adds no permission defaults.
 
 ---
@@ -21,9 +21,8 @@
 - **`serena`**: Stdio MCP for symbol search and refactoring, pinned to `serena-agent==2.1.0` with the native Antigravity tool interface. Project selection occurs when needed.
 - **`context7`**: Streamable HTTP MCP for real-time framework & library API documentation (`https://mcp.context7.com/mcp`).
 - **`deepwiki`**: Streamable HTTP MCP for querying AI-indexed GitHub repository wikis and architectures without credentials (`https://mcp.deepwiki.com/mcp`).
-- **`memory`**: Optional local MCP memory graph, disabled on fresh installation, with a separate `~/.gemini/config/memory.json` store.
-- **`openaiDeveloperDocs`**: Official OpenAI documentation MCP.
 - **`rea`**: Optional reverse-engineering MCP (`--with-rea`, pinned `rea-agents@6.4.0`). Native decompilation needs Ghidra, which is not bundled.
+- **`hybrid-sage`**: Disabled by default during install to avoid unnecessary routing token overhead; pass `--enable-hybrid` to opt in.
 
 ### 2. Vetted Agent Skills (41 Bundled + Gitignored `skills.local/` Support)
 - **Core Software Engineering**: `agentic-coding`, `grill-with-docs`, `domain-modeling`, `codebase-design`, `to-spec`, `to-tickets` (`mattpocock/skills`, 302.6k ⭐), `git-commit-convention`, `test-driven-development` (`obra/superpowers`, 296k ⭐), `systematic-debugging`, `verification-before-completion`, `using-git-worktrees` (`obra/superpowers`), `github-repo-best-practices`, `security-audit`, `webapp-testing` (`anthropics/skills`, 180k ⭐), `mcp-builder`.
@@ -62,8 +61,8 @@ bash install.sh
 ```
 
 ### What `install.sh` Does:
-1. Merges `config/mcp_config.json` into the live config, preserving custom registrations and existing on/off choices.
-2. Links all vetted skills into `~/.gemini/config/skills/`.
+1. Merges `config/mcp_config.json` into the live config (retiring unmodified obsolete default servers while preserving custom registrations and existing on/off choices; `hybrid-sage` disabled by default unless `--enable-hybrid` is passed).
+2. Links core skills + `skills.local/` overrides into `~/.gemini/config/skills/`, stages domain catalog skills + `routing.json` under `~/.gemini/config/skills-catalog/`, and installs `sage-skill-router` (`--all-skills` installs all 41 directly).
 3. Links custom subagents into `~/.gemini/config/agents/`.
 4. Merges shared rules into `~/.gemini/config/AGENTS.md`, preserving personal notes.
 5. Preserves `~/.gemini/antigravity-cli/settings.json` permission choices.
@@ -96,8 +95,11 @@ antigravity-sage/
 ├── REGISTRY.md                 # Detailed catalog of all skills, MCPs & agents
 ├── config/
 │   ├── AGENTS.md               # Machine-wide global agent instructions
-│   ├── mcp_config.json         # Curated MCP configuration (Serena, Context7, DeepWiki, Memory, REA)
+│   ├── mcp_config.json         # Curated MCP configuration (Serena, Context7, DeepWiki, optional REA)
+│   ├── skill-routing.json      # Tiered Core (9) vs On-Demand Catalog (32) skill routing rules
 │   └── settings.json           # Empty defaults; existing permission choices survive
+├── plugins/
+│   └── sage-skill-router/      # SessionStart + PreInvocation workspace/prompt skill auto-router
 ├── agents/                     # Custom subagents & CLI agents (orchestrator, read-only, reviewer, skeptic, bioinformatician)
 │   ├── bioinformatician/agent.md
 │   ├── orchestrator/agent.md

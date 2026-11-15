@@ -26,7 +26,7 @@ fi
 if command -v npx &>/dev/null; then
   check_pass "npx binary found ($(node --version 2>&1))"
 else
-  check_warn "npx not found (required for memory MCP server)"
+  check_info "npx not found (optional; needed only if --with-rea or npm MCPs are added)"
 fi
 
 if command -v rea &>/dev/null || [ -x "$HOME/.local/bin/rea" ]; then
@@ -49,7 +49,7 @@ if [ -f "$MCP_CONF" ]; then
         check_warn "hybrid-sage MCP registered but script not found at $HS_SCRIPT"
       fi
     else
-      check_info "hybrid-sage MCP not installed (standalone cloud-only mode)"
+      check_info "hybrid-sage MCP disabled or absent (standalone cloud-only mode; pass --enable-hybrid to opt in)"
     fi
   else
     check_fail "mcp_config.json has invalid JSON syntax"
@@ -102,18 +102,36 @@ else
   check_warn "Global AGENTS.md rules not found at $RULES_FILE"
 fi
 
-# 8. Skills count & broken-symlink check
+# 8. Skills count, on-demand catalog & router plugin
 SKILLS_DIR="$HOME/.gemini/config/skills"
+CATALOG_DIR="$HOME/.gemini/config/skills-catalog"
+ROUTER_DIR="$HOME/.gemini/config/plugins/sage-skill-router"
 if [ -d "$SKILLS_DIR" ]; then
   BROKEN=$(find "$SKILLS_DIR" -mindepth 1 -maxdepth 1 -xtype l | wc -l)
   COUNT=$(find -L "$SKILLS_DIR" -mindepth 1 -maxdepth 1 -type d | wc -l)
-  if [ "$BROKEN" -gt 0 ]; then
-    check_warn "Skills directory has $BROKEN broken symlink(s). Review their targets and re-run ./install.sh."
+  CATALOG_COUNT=0
+  CATALOG_BROKEN=0
+  if [ -d "$CATALOG_DIR" ]; then
+    CATALOG_BROKEN=$(find "$CATALOG_DIR" -mindepth 1 -maxdepth 1 -xtype l | wc -l)
+    CATALOG_COUNT=$(find -L "$CATALOG_DIR" -mindepth 1 -maxdepth 1 -type d | wc -l)
+  fi
+  if [ "$BROKEN" -gt 0 ] || [ "$CATALOG_BROKEN" -gt 0 ]; then
+    check_warn "Skills have $((BROKEN + CATALOG_BROKEN)) broken symlink(s). Review targets and re-run ./install.sh."
   else
-    check_pass "Active skills installed: $COUNT skills available (0 broken links)"
+    check_pass "Skills installed: $COUNT core/local active, $CATALOG_COUNT in on-demand catalog (0 broken links)"
   fi
 else
   check_fail "Skills directory not found at $SKILLS_DIR"
+fi
+
+if [ -f "$ROUTER_DIR/plugin.json" ] && [ -f "$CATALOG_DIR/routing.json" ]; then
+  if agy plugin validate "$ROUTER_DIR" --strict &>/dev/null; then
+    check_pass "sage-skill-router plugin validated (auto session + prompt skill routing active)"
+  else
+    check_warn "sage-skill-router plugin present but failed strict validation"
+  fi
+else
+  check_info "sage-skill-router not active (full skills loaded directly)"
 fi
 
 # 9. Custom Subagents

@@ -9,13 +9,13 @@ A curated, hardware-portable registry of state-of-the-art skills, custom subagen
 | **`serena`** | stdio (`uvx serena-agent start-mcp-server --context antigravity --project-from-cwd --open-web-dashboard false`) | LSP-level code intelligence (find symbols, jump to references/definitions, symbol outline, semantic edits) across 40+ languages | None | `oraios/serena` (30.1k ⭐, MIT/GPL-3.0) |
 | **`context7`** | Streamable HTTP (`https://mcp.context7.com/mcp`) | Up-to-date documentation and library API references | None | Context7 |
 | **`deepwiki`** | Streamable HTTP (`https://mcp.deepwiki.com/mcp`) | AI-indexed documentation, wikis, and architecture summaries for open-source GitHub repositories | None | DeepWiki (Streamable HTTP, free) |
-| **`memory`** | stdio (`npx -y @modelcontextprotocol/server-memory@2026.7.4`) | Persistent knowledge graph for project facts, design decisions, and architectural notes | `MEMORY_FILE_PATH` pointing to memory store | Official MCP SDK |
 | **`rea`** *(opt-in `--with-rea`)* | stdio (`npx -y rea-agents@6.4.0 mcp`) | Reverse engineering of native binaries, APKs, firmware, Electron/JS apps, .NET, WASM/EVM | `REA_MCP_INPUT_SCHEMA_PROFILE=compact` | `morluto/rea` (99.9k ⭐, MIT) |
-| **`hybrid-sage`** *(optional sibling repo)* | stdio (`python3 .../hybrid-sage/plugins/mcp_server.py`) | Bidirectional Antigravity <-> OpenCode symbiosis (`fleet_status`, `route_task`, `delegate_local`, `escalate_task`, `manage_handoff`, `airgap_scan`) + `model-router` skill | Optional local OpenCode install | `bioassembly/hybrid-sage` (MIT) |
+| **`hybrid-sage`** *(optional sibling repo; disabled by default, `--enable-hybrid` to opt in)* | stdio (`python3 .../hybrid-sage/plugins/mcp_server.py`) | Bidirectional Antigravity <-> OpenCode symbiosis (`fleet_status`, `route_task`, `delegate_local`, `escalate_task`, `manage_handoff`, `airgap_scan`) + `model-router` skill | Optional local OpenCode install | `bioassembly/hybrid-sage` (MIT) |
 
 > **Trimmed Servers & Skills:**
-> - `sequential-thinking`, `fetch`, `playwright`: Redundant with Antigravity's native reasoning, `read_url_content`, and `/browser` subagent.
+> - `sequential-thinking`, `fetch`, `playwright`, `memory`, `openaiDeveloperDocs`: Pruned to avoid standing MCP schema bloat; Antigravity provides native reasoning, web search/`read_url_content`, `/browser`, and checkpoint/project notes.
 > - `/gpu` (`nvidia-smi` wrapper), `tool-installation` (Python-version-specific filler), duplicate `hybrid-routing` scripts: Pruned to keep the standalone harness lean and 100% hardware-agnostic (no local GPU assumed; cross-harness routing lives in `hybrid-sage`'s `model-router`).
+> - `sage-skill-router` (`plugins/sage-skill-router`): Keeps 9 core + `skills.local/` skills loaded upfront and routes 32 domain skills from `skills-catalog/` per session.
 
 ---
 

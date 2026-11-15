@@ -27,6 +27,9 @@
       "env": {
         "MEMORY_FILE_PATH": "${HOME}/.config/opencode/memory.json"
       }
+    },
+    "openaiDeveloperDocs": {
+      "url": "https://developers.openai.com/mcp"
     }
   }
 }

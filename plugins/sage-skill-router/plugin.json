@@ -1,0 +1,5 @@
+{
+  "name": "sage-skill-router",
+  "version": "1.0.0",
+  "description": "Automatically selects session skills from workspace context and prompt intent"
+}

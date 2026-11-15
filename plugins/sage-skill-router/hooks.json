@@ -1,0 +1,17 @@
+{
+  "skill-router": {
+    "enabled": true,
+    "SessionStart": [
+      {
+        "command": "python3 route_skills.py --client antigravity",
+        "timeout": 5
+      }
+    ],
+    "PreInvocation": [
+      {
+        "command": "python3 route_skills.py --client antigravity --prompt",
+        "timeout": 5
+      }
+    ]
+  }
+}

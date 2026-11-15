@@ -22,20 +22,6 @@
         "--enable-gui-log-window",
         "false"
       ]
-    },
-    "memory": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-memory@2.1.1"
-      ],
-      "env": {
-        "MEMORY_FILE_PATH": "${HOME}/.gemini/config/memory.json"
-      },
-      "disabled": true
-    },
-    "openaiDeveloperDocs": {
-      "url": "https://developers.openai.com/mcp"
     }
   }
 }
