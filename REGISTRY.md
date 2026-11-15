@@ -77,3 +77,5 @@ A curated, hardware-portable registry of state-of-the-art skills, custom subagen
 - 2026-11-08 harness-integrity pass <- local audit + official MCP SDK, Nextflow/Seqera, pysam, and Biopython documentation — repaired unavailable scientific/MCP guide links, added local MCP evaluation and test-design guides, aligned acquisition with authorized maintenance, and preferred isolated Python environments. New support text is locally authored; existing upstream attribution remains.
 
 - 2026-11-15 finalized shared refresh: original upstream packages, full grilling/setup dependencies, native RTK integration, checksum manifests and licenses; current client catalog and compatibility details are in docs/shared-sync.md. Upstream MCP evaluation parallel-result fix is explicit in patches/mcp-evaluation-parallel.patch.
+
+- 2026-11-15 grill-with-docs replaces grill-me — original mattpocock/skills engineering/grill-with-docs at 5863806dd4e15c63174bee4e7515a4256792ecfa. Retains full grilling and domain-modeling dependencies and explicit-only invocation. Original files and hashes are in third_party/lock.json.
